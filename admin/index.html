@@ -175,7 +175,7 @@ async function doLogin(e) {
   await new Promise(r => setTimeout(r, 600));
 
   const hash = await sha256hex(user + ':' + pass);
-  const EXPECTED = 'dfeacc25d4edc677093f498cc546a6ce898a89111c7ea3b92049353fcefe1a32';
+  const EXPECTED = '9cbacaa8aac9c6eb4d27e6f5ecb4561fa76425dba691ff9114512ff8aeb638f1';
 
   if (hash === EXPECTED) {
     sessionStorage.setItem('fa_admin_ok', '1');
