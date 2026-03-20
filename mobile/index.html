@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>FinAsset — Abriendo la app…</title>
+<!--
+  ┌─────────────────────────────────────────────────┐
+  │  INSTRUCCIÓN PARA EL DESARROLLADOR              │
+  │                                                 │
+  │  Este archivo es el punto de entrada de         │
+  │  finasset.app/mobile                            │
+  │                                                 │
+  │  Aquí va el bundle de la web app existente      │
+  │  (el React/Vue/Next.js build que antes estaba   │
+  │  en la raíz del dominio).                       │
+  │                                                 │
+  │  Opciones:                                      │
+  │  1) Copia el contenido del build anterior       │
+  │     en esta carpeta /mobile/                    │
+  │  2) O usa el vercel.json / _redirects para      │
+  │     apuntar /mobile → tu app en otro servicio   │
+  └─────────────────────────────────────────────────┘
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --green: #22c47a; --dark: #0e1f15; --bg: #f7faf8; --text: #111c16; --muted: #7a9585; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px; }
+
+  .card {
+    background: #fff; border-radius: 24px; padding: 48px 36px;
+    text-align: center; max-width: 380px; width: 100%;
+    box-shadow: 0 8px 40px rgba(14,31,21,0.10), 0 24px 64px rgba(14,31,21,0.06);
+    border: 1px solid #e4ede8;
+  }
+
+  .logo-wrap {
+    width: 72px; height: 72px; border-radius: 20px;
+    background: linear-gradient(135deg, var(--green) 0%, #0bbfa0 100%);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 24px;
+    box-shadow: 0 4px 20px rgba(34,196,122,0.4);
+  }
+  .logo-wrap svg { width: 36px; height: 36px; color: #fff; }
+
+  h1 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.04em; color: var(--text); margin-bottom: 10px; }
+  p  { font-size: 0.88rem; color: var(--muted); line-height: 1.65; margin-bottom: 32px; }
+
+  .spinner {
+    width: 32px; height: 32px; border: 3px solid #e4ede8;
+    border-top-color: var(--green); border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    margin: 0 auto 20px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .back { font-size: 0.78rem; color: var(--muted); text-decoration: none; display: block; margin-top: 20px; }
+  .back:hover { color: var(--green); }
+  .btn-open { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, var(--green) 0%, #0bbfa0 100%); color: #fff; text-decoration: none; font-size: 0.92rem; font-weight: 700; padding: 13px 28px; border-radius: 12px; box-shadow: 0 4px 16px rgba(34,196,122,0.4); transition: all 0.2s; margin-bottom: 4px; }
+  .btn-open:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(34,196,122,0.5); }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/>
+        <polyline points="16 7 22 7 22 13"/>
+      </svg>
+    </div>
+    <h1>Abriendo FinAsset…</h1>
+    <p>Redirigiendo a la app. Si no carga automáticamente, pulsa el botón de abajo.</p>
+    <div class="spinner"></div>
+    <a class="btn-open" href="https://app.finasset.app">Abrir FinAsset →</a>
+    <a class="back" href="/">← Volver al inicio</a>
+  </div>
+
+  <script>
+    window.location.href = 'https://app.finasset.app';
+  </script>
+</body>
+</html>

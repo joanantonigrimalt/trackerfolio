@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>FinAsset Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green: #22c47a; --green2: #17a864; --teal: #0bbfa0;
+  --dark: #0e1f15; --bg: #f7faf8; --surface: #fff;
+  --text: #111c16; --muted: #7a9585; --border: #e4ede8;
+  --red: #ef4444;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--dark);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+body::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(34,196,122,0.18) 0%, transparent 60%),
+              radial-gradient(ellipse 50% 40% at 80% 80%, rgba(11,191,160,0.08) 0%, transparent 50%);
+}
+.card {
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 24px;
+  padding: 48px 44px;
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.4);
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+.logo-mark {
+  width: 40px; height: 40px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--green), var(--teal));
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 20px rgba(34,196,122,0.4);
+}
+.logo-mark svg { color: #fff; }
+.logo-text { font-size: 1.2rem; font-weight: 800; color: #fff; letter-spacing: -0.03em; }
+.logo-text span { color: var(--green); }
+h1 { font-size: 1.5rem; font-weight: 800; color: #fff; letter-spacing: -0.04em; margin-bottom: 6px; }
+.subtitle { font-size: 0.85rem; color: rgba(255,255,255,0.4); margin-bottom: 28px; }
+label { display: block; font-size: 0.72rem; font-weight: 700; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+input {
+  width: 100%;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  padding: 12px 14px;
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s;
+  margin-bottom: 16px;
+}
+input::placeholder { color: rgba(255,255,255,0.25); }
+input:focus { border-color: var(--green); }
+.btn {
+  width: 100%;
+  padding: 13px;
+  background: linear-gradient(135deg, var(--green), var(--green2));
+  border: none;
+  border-radius: 12px;
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 20px rgba(34,196,122,0.4);
+  margin-top: 8px;
+}
+.btn:hover { transform: translateY(-1px); box-shadow: 0 8px 28px rgba(34,196,122,0.5); }
+.btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+.error {
+  background: rgba(239,68,68,0.12);
+  border: 1px solid rgba(239,68,68,0.25);
+  border-radius: 10px;
+  padding: 10px 14px;
+  color: #fca5a5;
+  font-size: 0.83rem;
+  margin-bottom: 16px;
+  display: none;
+}
+.error.show { display: block; }
+.badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(34,196,122,0.12); border: 1px solid rgba(34,196,122,0.2);
+  border-radius: 100px; padding: 4px 12px;
+  font-size: 0.7rem; font-weight: 700; color: var(--green);
+  letter-spacing: 0.06em; text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.spinner { display: none; }
+.loading .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.6s linear infinite; vertical-align: middle; margin-right: 6px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">
+    <div class="logo-mark">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>
+      </svg>
+    </div>
+    <span class="logo-text">FinAsset <span>Admin</span></span>
+  </div>
+  <div class="badge">
+    <span style="width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block"></span>
+    Panel de control
+  </div>
+  <h1>Acceso seguro</h1>
+  <p class="subtitle">Sólo administradores autorizados</p>
+
+  <div class="error" id="errMsg">Usuario o contraseña incorrectos</div>
+
+  <form id="loginForm" onsubmit="doLogin(event)">
+    <label>Usuario</label>
+    <input type="text" id="username" placeholder="tu usuario" autocomplete="username" required>
+    <label>Contraseña</label>
+    <input type="password" id="password" placeholder="••••••••" autocomplete="current-password" required>
+    <button type="submit" class="btn" id="loginBtn">
+      <span class="spinner"></span>Entrar al panel
+    </button>
+  </form>
+</div>
+
+<script>
+// Already authenticated?
+if (sessionStorage.getItem('fa_admin_ok') === '1') {
+  window.location.replace('/admin/dashboard.html');
+}
+
+async function sha256hex(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function doLogin(e) {
+  e.preventDefault();
+  const btn = document.getElementById('loginBtn');
+  const err = document.getElementById('errMsg');
+  const user = document.getElementById('username').value.trim().toLowerCase();
+  const pass = document.getElementById('password').value;
+  btn.disabled = true;
+  btn.classList.add('loading');
+  err.classList.remove('show');
+
+  // Add slight delay to prevent brute-force
+  await new Promise(r => setTimeout(r, 600));
+
+  const hash = await sha256hex(user + ':' + pass);
+  const EXPECTED = 'dfeacc25d4edc677093f498cc546a6ce898a89111c7ea3b92049353fcefe1a32';
+
+  if (hash === EXPECTED) {
+    sessionStorage.setItem('fa_admin_ok', '1');
+    sessionStorage.setItem('fa_admin_user', user);
+    window.location.replace('/admin/dashboard.html');
+  } else {
+    err.classList.add('show');
+    btn.disabled = false;
+    btn.classList.remove('loading');
+    document.getElementById('password').value = '';
+    document.getElementById('password').focus();
+  }
+}
+</script>
+</body>
+</html>

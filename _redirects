@@ -1,0 +1,14 @@
+# Admin panel
+/admin          /admin/index.html     200
+/admin/         /admin/index.html     200
+/admin/dashboard /admin/dashboard.html 200
+
+# App redirect
+/mobile         /mobile/index.html    200
+/mobile/*       /mobile/:splat        200
+
+# SEO pages
+/tracker-dividendos.html  /tracker-dividendos.html  200
+
+# Fallback
+/*              /index.html           200

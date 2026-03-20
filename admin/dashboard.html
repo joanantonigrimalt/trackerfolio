@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>FinAsset — Admin Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green: #22c47a; --green2: #17a864; --green3: #0f7347; --teal: #0bbfa0;
+  --dark: #0e1f15; --dark2: #132619;
+  --bg: #f7faf8; --surface: #fff;
+  --text: #111c16; --text2: #2d4a39; --muted: #7a9585;
+  --border: #e4ede8; --border2: #d0e2d8;
+  --red: #ef4444; --yellow: #f59e0b; --blue: #3b82f6; --purple: #8b5cf6;
+  --accent: #22c47a;
+  --sidebar-w: 240px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); display: flex; min-height: 100vh; }
+
+/* ── SIDEBAR ── */
+#sidebar {
+  width: var(--sidebar-w); background: var(--dark); position: fixed;
+  top: 0; left: 0; height: 100vh; display: flex; flex-direction: column;
+  z-index: 100; border-right: 1px solid rgba(255,255,255,0.05);
+}
+.sb-logo {
+  display: flex; align-items: center; gap: 10px;
+  padding: 22px 20px; border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.logo-mark {
+  width: 34px; height: 34px; border-radius: 10px;
+  background: linear-gradient(135deg, var(--green), var(--teal));
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 12px rgba(34,196,122,0.35); flex-shrink: 0;
+}
+.logo-mark svg { color: #fff; }
+.sb-title { font-size: 1rem; font-weight: 800; color: #fff; letter-spacing: -0.03em; }
+.sb-title span { color: var(--green); }
+.sb-nav { flex: 1; padding: 12px 10px; overflow-y: auto; }
+.sb-section { font-size: 0.62rem; font-weight: 700; color: rgba(255,255,255,0.25); text-transform: uppercase; letter-spacing: 0.12em; padding: 12px 12px 6px; }
+.nav-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 12px; border-radius: 9px; cursor: pointer;
+  font-size: 0.83rem; font-weight: 500; color: rgba(255,255,255,0.5);
+  transition: all 0.15s; margin-bottom: 1px; text-decoration: none;
+  position: relative;
+}
+.nav-item:hover { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.85); }
+.nav-item.active { background: rgba(34,196,122,0.15); color: var(--green); font-weight: 600; }
+.nav-item.active svg { color: var(--green); }
+.nav-item svg { flex-shrink: 0; opacity: 0.7; }
+.nav-item.active svg { opacity: 1; }
+.nav-badge { margin-left: auto; background: var(--red); color: #fff; font-size: 0.6rem; font-weight: 800; padding: 2px 6px; border-radius: 100px; }
+.sb-footer { padding: 16px; border-top: 1px solid rgba(255,255,255,0.06); }
+.sb-user { display: flex; align-items: center; gap: 10px; }
+.sb-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--green), var(--teal)); display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 800; color: #fff; flex-shrink: 0; }
+.sb-user-info { flex: 1; min-width: 0; }
+.sb-user-name { font-size: 0.78rem; font-weight: 700; color: rgba(255,255,255,0.85); truncate: true; }
+.sb-user-role { font-size: 0.65rem; color: rgba(255,255,255,0.3); }
+.logout-btn { background: none; border: none; cursor: pointer; color: rgba(255,255,255,0.3); padding: 4px; border-radius: 6px; transition: color 0.15s; flex-shrink: 0; }
+.logout-btn:hover { color: var(--red); }
+
+/* ── MAIN ── */
+#main { margin-left: var(--sidebar-w); flex: 1; min-width: 0; }
+#topbar {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(247,250,248,0.92); backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 32px; display: flex; align-items: center; justify-content: space-between;
+}
+.topbar-title { font-size: 1rem; font-weight: 800; color: var(--text); letter-spacing: -0.02em; }
+.topbar-right { display: flex; align-items: center; gap: 10px; }
+.topbar-badge { display: flex; align-items: center; gap: 6px; background: rgba(34,196,122,0.1); border: 1px solid rgba(34,196,122,0.2); border-radius: 100px; padding: 4px 12px; font-size: 0.72rem; font-weight: 700; color: var(--green3); }
+.topbar-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: blink 2s ease-in-out infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+#content { padding: 28px 32px; }
+
+/* ── SECTION ── */
+.section { display: none; }
+.section.active { display: block; }
+.section-header { margin-bottom: 24px; }
+.section-header h2 { font-size: 1.4rem; font-weight: 800; color: var(--text); letter-spacing: -0.03em; }
+.section-header p { font-size: 0.85rem; color: var(--muted); margin-top: 4px; }
+
+/* ── STAT CARDS ── */
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px; }
+.stat-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 16px; padding: 20px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.stat-label { font-size: 0.72rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.stat-value { font-size: 1.8rem; font-weight: 800; color: var(--text); letter-spacing: -0.04em; line-height: 1; }
+.stat-change { font-size: 0.75rem; font-weight: 600; display: flex; align-items: center; gap: 4px; }
+.stat-change.up { color: var(--green2); }
+.stat-change.dn { color: var(--red); }
+.stat-icon { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 4px; }
+
+/* ── TABLE ── */
+.table-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-bottom: 20px; }
+.table-header { padding: 18px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.table-header h3 { font-size: 0.9rem; font-weight: 700; color: var(--text); }
+.table-search { flex: 1; max-width: 240px; position: relative; }
+.table-search input { width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 7px 12px 7px 32px; font-family: inherit; font-size: 0.8rem; color: var(--text); outline: none; transition: border-color 0.2s; }
+.table-search input:focus { border-color: var(--green); }
+.table-search svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--muted); }
+table { width: 100%; border-collapse: collapse; }
+th { padding: 10px 20px; text-align: left; font-size: 0.68rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; border-bottom: 1px solid var(--border); background: #fafbfa; }
+td { padding: 12px 20px; font-size: 0.82rem; color: var(--text); border-bottom: 1px solid var(--border); }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: var(--bg); }
+.pill { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 100px; font-size: 0.7rem; font-weight: 700; border: 1px solid; }
+.pill.active { background: #ecfdf5; color: #059669; border-color: #a7f3d0; }
+.pill.trial { background: #fffbeb; color: #b45309; border-color: #fde68a; }
+.pill.free { background: #f1f5f9; color: #64748b; border-color: #e2e8f0; }
+.pill.cancelled { background: #fef2f2; color: var(--red); border-color: #fecaca; }
+.pill.pro { background: #f5f3ff; color: #6d28d9; border-color: #ddd6fe; }
+.avatar-cell { display: flex; align-items: center; gap: 9px; }
+.mini-avatar { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, var(--green), var(--teal)); display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 800; color: #fff; flex-shrink: 0; }
+
+/* ── CHARTS ── */
+.charts-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 14px; margin-bottom: 24px; }
+.chart-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 20px; }
+.chart-title { font-size: 0.85rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.chart-sub { font-size: 0.75rem; color: var(--muted); margin-bottom: 16px; }
+.bar-chart { display: flex; align-items: flex-end; gap: 5px; height: 100px; }
+.bar { flex: 1; border-radius: 4px 4px 0 0; transition: opacity 0.2s; cursor: default; }
+.bar:hover { opacity: 0.75; }
+.bar-label { text-align: center; font-size: 0.6rem; color: var(--muted); margin-top: 4px; }
+.donut-wrap { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.donut { position: relative; width: 100px; height: 100px; }
+.donut svg { width: 100%; height: 100%; }
+.donut-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.donut-val { font-size: 1.2rem; font-weight: 800; color: var(--text); }
+.donut-lbl { font-size: 0.58rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+.legend { display: flex; flex-direction: column; gap: 6px; width: 100%; }
+.leg-row { display: flex; align-items: center; justify-content: space-between; font-size: 0.75rem; }
+.leg-dot { width: 8px; height: 8px; border-radius: 2px; margin-right: 6px; flex-shrink: 0; }
+.leg-name { display: flex; align-items: center; flex: 1; color: var(--text2); }
+.leg-val { font-weight: 700; color: var(--text); }
+
+/* ── ACTIVITY ── */
+.activity-list { display: flex; flex-direction: column; }
+.activity-item { display: flex; align-items: start; gap: 12px; padding: 12px 20px; border-bottom: 1px solid var(--border); }
+.activity-item:last-child { border-bottom: none; }
+.activity-icon { width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; flex-shrink: 0; margin-top: 1px; }
+.activity-body { flex: 1; }
+.activity-text { font-size: 0.82rem; color: var(--text); line-height: 1.4; }
+.activity-text strong { font-weight: 700; }
+.activity-time { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+
+/* ── CONFIG ── */
+.config-section { max-width: 600px; }
+.config-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px; margin-bottom: 16px; }
+.config-card h3 { font-size: 0.9rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.config-card p { font-size: 0.8rem; color: var(--muted); margin-bottom: 16px; }
+.form-group { margin-bottom: 14px; }
+.form-group label { display: block; font-size: 0.72rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 6px; }
+.form-group input, .form-group select {
+  width: 100%; border: 1px solid var(--border); border-radius: 8px;
+  padding: 9px 12px; font-family: inherit; font-size: 0.85rem;
+  color: var(--text); background: var(--bg); outline: none; transition: border-color 0.2s;
+}
+.form-group input:focus, .form-group select:focus { border-color: var(--green); background: #fff; }
+.form-group input.mono { font-family: monospace; font-size: 0.8rem; }
+.btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 18px; border-radius: 9px; border: none; cursor: pointer; font-family: inherit; font-size: 0.83rem; font-weight: 700; transition: all 0.18s; }
+.btn-primary { background: var(--green); color: #fff; }
+.btn-primary:hover { background: var(--green2); }
+.btn-ghost { background: var(--bg); border: 1px solid var(--border); color: var(--text2); }
+.btn-ghost:hover { border-color: var(--border2); background: #fff; }
+.btn-danger { background: #fef2f2; color: var(--red); border: 1px solid #fecaca; }
+.btn-danger:hover { background: #fee2e2; }
+.connected-indicator { display: flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 600; color: var(--green2); margin-bottom: 12px; }
+.not-connected { color: var(--muted); }
+.connection-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); }
+.not-connected .connection-dot { background: var(--muted); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .charts-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 680px) {
+  #sidebar { transform: translateX(-100%); }
+  #main { margin-left: 0; }
+  .stats-grid { grid-template-columns: 1fr; }
+}
+
+/* ── LOADING OVERLAY ── */
+#loadOverlay {
+  position: fixed; inset: 0; background: var(--dark);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 9999; transition: opacity 0.4s;
+}
+.spinner { width: 36px; height: 36px; border: 3px solid rgba(34,196,122,0.2); border-top-color: var(--green); border-radius: 50%; animation: spin 0.7s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.empty-state { text-align: center; padding: 48px 20px; color: var(--muted); }
+.empty-state .icon { font-size: 2.5rem; margin-bottom: 12px; }
+.empty-state h4 { font-size: 0.95rem; font-weight: 700; color: var(--text2); margin-bottom: 4px; }
+.empty-state p { font-size: 0.8rem; }
+.info-banner { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 10px; padding: 12px 16px; font-size: 0.8rem; color: #1e40af; margin-bottom: 16px; display: flex; align-items: start; gap: 8px; }
+</style>
+</head>
+<body>
+<div id="loadOverlay"><div class="spinner"></div></div>
+
+<!-- SIDEBAR -->
+<aside id="sidebar">
+  <div class="sb-logo">
+    <div class="logo-mark">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>
+      </svg>
+    </div>
+    <span class="sb-title">FinAsset <span>Admin</span></span>
+  </div>
+
+  <nav class="sb-nav">
+    <div class="sb-section">Principal</div>
+    <a class="nav-item active" data-section="overview" onclick="nav(this,'overview')">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      Overview
+    </a>
+    <a class="nav-item" data-section="users" onclick="nav(this,'users')">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Usuarios
+      <span class="nav-badge" id="usersBadge" style="display:none">0</span>
+    </a>
+    <a class="nav-item" data-section="revenue" onclick="nav(this,'revenue')">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      Revenue & Planes
+    </a>
+    <a class="nav-item" data-section="app" onclick="nav(this,'app')">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+      App & Carteras
+    </a>
+    <a class="nav-item" data-section="activity" onclick="nav(this,'activity')">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      Actividad
+    </a>
+    <div class="sb-section">Sistema</div>
+    <a class="nav-item" data-section="config" onclick="nav(this,'config')">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+      Configuración API
+    </a>
+  </nav>
+
+  <div class="sb-footer">
+    <div class="sb-user">
+      <div class="sb-avatar" id="sbAvatar">JA</div>
+      <div class="sb-user-info">
+        <div class="sb-user-name" id="sbUserName">Admin</div>
+        <div class="sb-user-role">Super Admin</div>
+      </div>
+      <button class="logout-btn" onclick="logout()" title="Cerrar sesión">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      </button>
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main id="main">
+  <div id="topbar">
+    <span class="topbar-title" id="topbarTitle">Overview</span>
+    <div class="topbar-right">
+      <div class="topbar-badge">
+        <div class="topbar-dot"></div>
+        <span id="connectionStatus">Conectando…</span>
+      </div>
+      <button class="btn btn-ghost" onclick="refreshData()" title="Actualizar datos">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+        Actualizar
+      </button>
+    </div>
+  </div>
+
+  <div id="content">
+
+    <!-- ══ OVERVIEW ══ -->
+    <section class="section active" id="sec-overview">
+      <div class="section-header">
+        <h2>Overview del SaaS</h2>
+        <p id="overviewDate">Cargando métricas…</p>
+      </div>
+      <div class="stats-grid" id="overviewStats">
+        <div class="stat-card"><div class="stat-icon" style="background:#ecfdf5"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c47a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><div class="stat-label">Usuarios totales</div><div class="stat-value" id="s-users">—</div><div class="stat-change up" id="s-users-ch"></div></div>
+        <div class="stat-card"><div class="stat-icon" style="background:#f0fdf4"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c47a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><div class="stat-label">MRR</div><div class="stat-value" id="s-mrr">—</div><div class="stat-change up" id="s-mrr-ch"></div></div>
+        <div class="stat-card"><div class="stat-icon" style="background:#f5f3ff"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div><div class="stat-label">Suscripciones activas</div><div class="stat-value" id="s-subs">—</div><div class="stat-change" id="s-subs-ch"></div></div>
+        <div class="stat-card"><div class="stat-icon" style="background:#fff7ed"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div><div class="stat-label">Carteras creadas</div><div class="stat-value" id="s-portfolios">—</div><div class="stat-change up" id="s-portfolios-ch"></div></div>
+      </div>
+
+      <div class="charts-grid">
+        <div class="chart-card">
+          <div class="chart-title">Nuevos usuarios (últimas 8 semanas)</div>
+          <div class="chart-sub">Registros por semana</div>
+          <div class="bar-chart" id="growthChart"></div>
+          <div style="display:flex;gap:4px;margin-top:4px" id="growthLabels"></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Distribución de planes</div>
+          <div class="chart-sub">Usuarios por tipo</div>
+          <div class="donut-wrap">
+            <div class="donut">
+              <svg viewBox="0 0 42 42" id="donutSvg">
+                <circle cx="21" cy="21" r="15.9" fill="none" stroke="#e4ede8" stroke-width="5"/>
+              </svg>
+              <div class="donut-center">
+                <span class="donut-val" id="donutTotal">—</span>
+                <span class="donut-lbl">usuarios</span>
+              </div>
+            </div>
+            <div class="legend" id="planLegend"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent signups -->
+      <div class="table-card">
+        <div class="table-header">
+          <h3>Últimos registros</h3>
+        </div>
+        <table>
+          <thead><tr><th>Usuario</th><th>Email</th><th>Plan</th><th>Registrado</th></tr></thead>
+          <tbody id="recentSignups"><tr><td colspan="4"><div class="empty-state"><div class="icon">⏳</div><h4>Cargando…</h4></div></td></tr></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ══ USERS ══ -->
+    <section class="section" id="sec-users">
+      <div class="section-header">
+        <h2>Gestión de usuarios</h2>
+        <p>Todos los usuarios registrados en FinAsset</p>
+      </div>
+      <div class="table-card">
+        <div class="table-header">
+          <h3>Usuarios (<span id="userCountLabel">0</span>)</h3>
+          <div class="table-search">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" placeholder="Buscar por email…" id="userSearch" oninput="filterUsers()">
+          </div>
+          <select id="planFilter" onchange="filterUsers()" style="border:1px solid var(--border);border-radius:8px;padding:6px 10px;font-family:inherit;font-size:0.8rem;color:var(--text);background:var(--bg);outline:none;">
+            <option value="">Todos los planes</option>
+            <option value="pro">Pro</option>
+            <option value="trial">Trial</option>
+            <option value="free">Free</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+        </div>
+        <div style="overflow-x:auto">
+          <table>
+            <thead><tr><th>Usuario</th><th>Email</th><th>Plan</th><th>Carteras</th><th>Activos</th><th>Registrado</th><th>Último acceso</th></tr></thead>
+            <tbody id="usersTable"><tr><td colspan="7"><div class="empty-state"><div class="icon">⏳</div><h4>Cargando…</h4></div></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ REVENUE ══ -->
+    <section class="section" id="sec-revenue">
+      <div class="section-header">
+        <h2>Revenue & Planes</h2>
+        <p>Facturación y distribución de suscripciones</p>
+      </div>
+      <div class="stats-grid" style="grid-template-columns:repeat(3,1fr)">
+        <div class="stat-card"><div class="stat-label">MRR</div><div class="stat-value" id="r-mrr">—</div><div class="stat-change up" id="r-mrr-ch">Cargando…</div></div>
+        <div class="stat-card"><div class="stat-label">ARR (estimado)</div><div class="stat-value" id="r-arr">—</div></div>
+        <div class="stat-card"><div class="stat-label">Ticket promedio</div><div class="stat-value" id="r-avg">—</div></div>
+      </div>
+      <div class="table-card">
+        <div class="table-header"><h3>Suscripciones activas</h3></div>
+        <table>
+          <thead><tr><th>Usuario</th><th>Plan</th><th>Precio</th><th>Próximo pago</th><th>Estado</th></tr></thead>
+          <tbody id="subsTable"><tr><td colspan="5"><div class="empty-state"><div class="icon">⏳</div><h4>Cargando…</h4></div></td></tr></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ══ APP STATS ══ -->
+    <section class="section" id="sec-app">
+      <div class="section-header">
+        <h2>App & Carteras</h2>
+        <p>Métricas de uso de la aplicación</p>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-label">Carteras creadas</div><div class="stat-value" id="a-portfolios">—</div></div>
+        <div class="stat-card"><div class="stat-label">Activos registrados</div><div class="stat-value" id="a-assets">—</div></div>
+        <div class="stat-card"><div class="stat-label">Transacciones</div><div class="stat-value" id="a-txs">—</div></div>
+        <div class="stat-card"><div class="stat-label">Alertas activas</div><div class="stat-value" id="a-alerts">—</div></div>
+      </div>
+      <div class="table-card">
+        <div class="table-header"><h3>Top carteras por activos</h3></div>
+        <table>
+          <thead><tr><th>Usuario</th><th>Cartera</th><th>Activos</th><th>Valor estimado</th><th>Creada</th></tr></thead>
+          <tbody id="portfoliosTable"><tr><td colspan="5"><div class="empty-state"><div class="icon">⏳</div><h4>Cargando…</h4></div></td></tr></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ══ ACTIVITY ══ -->
+    <section class="section" id="sec-activity">
+      <div class="section-header">
+        <h2>Actividad reciente</h2>
+        <p>Eventos del sistema y acciones de usuarios</p>
+      </div>
+      <div class="table-card">
+        <div class="table-header"><h3>Eventos</h3></div>
+        <div class="activity-list" id="activityList">
+          <div class="empty-state"><div class="icon">⏳</div><h4>Cargando…</h4></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ CONFIG ══ -->
+    <section class="section" id="sec-config">
+      <div class="section-header">
+        <h2>Configuración API</h2>
+        <p>Conecta el admin panel a tu backend de Supabase</p>
+      </div>
+      <div class="config-section">
+        <div class="info-banner">
+          <span>ℹ️</span>
+          <span>Las credenciales se guardan en <strong>localStorage</strong> de tu navegador. Nunca salen del dispositivo.</span>
+        </div>
+        <div class="config-card">
+          <h3>Conexión Supabase</h3>
+          <p>Introduce las credenciales de tu proyecto Supabase para cargar datos reales.</p>
+          <div id="connStatus" class="connected-indicator not-connected">
+            <div class="connection-dot"></div>
+            <span id="connStatusText">No conectado</span>
+          </div>
+          <div class="form-group">
+            <label>Supabase URL</label>
+            <input type="url" id="cfgUrl" class="mono" placeholder="https://xxxxxxxxxxxx.supabase.co" oninput="cfgChanged()">
+          </div>
+          <div class="form-group">
+            <label>Service Role Key <span style="font-size:0.65rem;color:var(--red);font-weight:500;text-transform:none">(mantén esto en privado)</span></label>
+            <input type="password" id="cfgKey" class="mono" placeholder="eyJhbGciOiJIUzI1NiIs..." oninput="cfgChanged()">
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn btn-primary" onclick="saveConfig()">Guardar y conectar</button>
+            <button class="btn btn-ghost" onclick="testConnection()">Probar conexión</button>
+            <button class="btn btn-danger" onclick="clearConfig()">Borrar credenciales</button>
+          </div>
+        </div>
+
+        <div class="config-card">
+          <h3>Nombres de tablas</h3>
+          <p>Personaliza los nombres de tabla según tu esquema de Supabase.</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div class="form-group"><label>Tabla usuarios</label><input id="t-users" value="profiles" oninput="cfgChanged()"></div>
+            <div class="form-group"><label>Tabla suscripciones</label><input id="t-subs" value="subscriptions" oninput="cfgChanged()"></div>
+            <div class="form-group"><label>Tabla carteras</label><input id="t-portfolios" value="portfolios" oninput="cfgChanged()"></div>
+            <div class="form-group"><label>Tabla activos</label><input id="t-assets" value="assets" oninput="cfgChanged()"></div>
+          </div>
+          <button class="btn btn-primary" onclick="saveConfig()">Guardar</button>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /content -->
+</main>
+
+<script>
+// ── AUTH CHECK ──────────────────────────────────────────────────────────────
+(function() {
+  if (sessionStorage.getItem('fa_admin_ok') !== '1') {
+    window.location.replace('/admin/index.html');
+  }
+  const u = sessionStorage.getItem('fa_admin_user') || 'admin';
+  document.getElementById('sbUserName').textContent = u;
+  document.getElementById('sbAvatar').textContent = u.slice(0,2).toUpperCase();
+})();
+
+// ── STATE ────────────────────────────────────────────────────────────────────
+let CFG = {
+  url: '', key: '',
+  tables: { users: 'profiles', subs: 'subscriptions', portfolios: 'portfolios', assets: 'assets' }
+};
+let ALL_USERS = [];
+let ALL_SUBS = [];
+let ALL_PORTFOLIOS = [];
+
+// ── CONFIG LOAD/SAVE ─────────────────────────────────────────────────────────
+function loadConfig() {
+  try {
+    const saved = JSON.parse(localStorage.getItem('fa_admin_cfg') || '{}');
+    CFG.url = saved.url || '';
+    CFG.key = saved.key || '';
+    CFG.tables = { ...CFG.tables, ...(saved.tables || {}) };
+  } catch {}
+  document.getElementById('cfgUrl').value = CFG.url;
+  document.getElementById('cfgKey').value = CFG.key;
+  document.getElementById('t-users').value = CFG.tables.users;
+  document.getElementById('t-subs').value = CFG.tables.subs;
+  document.getElementById('t-portfolios').value = CFG.tables.portfolios;
+  document.getElementById('t-assets').value = CFG.tables.assets;
+}
+function cfgChanged() {}
+function saveConfig() {
+  CFG.url = document.getElementById('cfgUrl').value.trim().replace(/\/$/, '');
+  CFG.key = document.getElementById('cfgKey').value.trim();
+  CFG.tables.users = document.getElementById('t-users').value.trim() || 'profiles';
+  CFG.tables.subs = document.getElementById('t-subs').value.trim() || 'subscriptions';
+  CFG.tables.portfolios = document.getElementById('t-portfolios').value.trim() || 'portfolios';
+  CFG.tables.assets = document.getElementById('t-assets').value.trim() || 'assets';
+  localStorage.setItem('fa_admin_cfg', JSON.stringify(CFG));
+  refreshData();
+}
+function clearConfig() {
+  if (!confirm('¿Borrar credenciales guardadas?')) return;
+  localStorage.removeItem('fa_admin_cfg');
+  CFG = { url:'', key:'', tables:{ users:'profiles', subs:'subscriptions', portfolios:'portfolios', assets:'assets' } };
+  loadConfig();
+  setStatus(false, 'No conectado');
+}
+
+// ── API FETCH ─────────────────────────────────────────────────────────────────
+async function sbFetch(table, params = '') {
+  if (!CFG.url || !CFG.key) return null;
+  try {
+    const res = await fetch(`${CFG.url}/rest/v1/${table}${params}`, {
+      headers: { 'apikey': CFG.key, 'Authorization': `Bearer ${CFG.key}`, 'Accept-Profile': 'public' }
+    });
+    if (!res.ok) return null;
+    return res.json();
+  } catch { return null; }
+}
+
+// ── CONNECTION ────────────────────────────────────────────────────────────────
+function setStatus(ok, text) {
+  const el = document.getElementById('connStatus');
+  const statusEl = document.getElementById('connectionStatus');
+  const textEl = document.getElementById('connStatusText');
+  el.className = 'connected-indicator' + (ok ? '' : ' not-connected');
+  const dot = el.querySelector('.connection-dot');
+  if (dot) dot.style.background = ok ? 'var(--green)' : 'var(--muted)';
+  if (statusEl) statusEl.textContent = ok ? 'API conectada' : 'Sin conexión';
+  if (textEl) textEl.textContent = text;
+}
+
+async function testConnection() {
+  if (!CFG.url || !CFG.key) { alert('Introduce URL y Key primero'); return; }
+  setStatus(false, 'Probando…');
+  const data = await sbFetch(CFG.tables.users, '?select=id&limit=1');
+  if (data !== null) {
+    setStatus(true, 'Conectado ✓');
+    alert('✅ Conexión OK — tabla "' + CFG.tables.users + '" accesible');
+  } else {
+    setStatus(false, 'Error de conexión');
+    alert('❌ No se pudo conectar. Revisa URL, Key y permisos de la tabla.');
+  }
+}
+
+// ── DATA LOAD ─────────────────────────────────────────────────────────────────
+async function refreshData() {
+  if (!CFG.url || !CFG.key) {
+    showNoConfig();
+    return;
+  }
+  setStatus(false, 'Cargando…');
+  const [users, subs, portfolios, assets] = await Promise.all([
+    sbFetch(CFG.tables.users, '?select=*&order=created_at.desc&limit=500'),
+    sbFetch(CFG.tables.subs, '?select=*&order=created_at.desc&limit=500'),
+    sbFetch(CFG.tables.portfolios, '?select=*&order=created_at.desc&limit=500'),
+    sbFetch(CFG.tables.assets, '?select=*&limit=500'),
+  ]);
+
+  const ok = users !== null;
+  setStatus(ok, ok ? 'Conectado' : 'Error');
+
+  ALL_USERS = Array.isArray(users) ? users : [];
+  ALL_SUBS = Array.isArray(subs) ? subs : [];
+  ALL_PORTFOLIOS = Array.isArray(portfolios) ? portfolios : [];
+  const allAssets = Array.isArray(assets) ? assets : [];
+
+  renderOverview(ALL_USERS, ALL_SUBS, ALL_PORTFOLIOS, allAssets);
+  renderUsers(ALL_USERS, ALL_SUBS, ALL_PORTFOLIOS, allAssets);
+  renderRevenue(ALL_USERS, ALL_SUBS);
+  renderApp(ALL_PORTFOLIOS, allAssets);
+  renderActivity(ALL_USERS, ALL_SUBS, ALL_PORTFOLIOS);
+  document.getElementById('overviewDate').textContent = 'Actualizado: ' + new Date().toLocaleString('es-ES');
+}
+
+function showNoConfig() {
+  const msg = '<tr><td colspan="7"><div class="empty-state"><div class="icon">🔌</div><h4>Sin conexión</h4><p>Ve a <strong>Configuración API</strong> e introduce tus credenciales de Supabase</p></div></td></tr>';
+  ['recentSignups','usersTable','subsTable','portfoliosTable'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = msg;
+  });
+  ['s-users','s-mrr','s-subs','s-portfolios','r-mrr','r-arr','r-avg','a-portfolios','a-assets','a-txs','a-alerts'].forEach(id => {
+    const el = document.getElementById(id); if (el) el.textContent = '—';
+  });
+  setStatus(false, 'No configurado');
+  document.getElementById('activityList').innerHTML = '<div class="empty-state"><div class="icon">🔌</div><h4>Sin conexión</h4><p>Configura la API primero</p></div>';
+}
+
+// ── OVERVIEW ─────────────────────────────────────────────────────────────────
+function renderOverview(users, subs, portfolios, assets) {
+  const activeSubs = subs.filter(s => s.status === 'active');
+  const trialSubs = subs.filter(s => s.status === 'trialing' || s.status === 'trial');
+  const mrr = activeSubs.reduce((a, s) => a + (Number(s.amount || s.price || 0)), 0);
+
+  setText('s-users', users.length.toLocaleString('es'));
+  setText('s-mrr', '€' + mrr.toLocaleString('es'));
+  setText('s-subs', activeSubs.length.toLocaleString('es'));
+  setText('s-portfolios', portfolios.length.toLocaleString('es'));
+
+  // Growth chart (last 8 weeks)
+  const weeks = [];
+  for (let i = 7; i >= 0; i--) {
+    const d = new Date(); d.setDate(d.getDate() - i * 7);
+    const nextD = new Date(d); nextD.setDate(nextD.getDate() + 7);
+    const count = users.filter(u => {
+      const c = new Date(u.created_at || u.inserted_at || 0);
+      return c >= d && c < nextD;
+    }).length;
+    weeks.push({ label: 'S' + (8 - i), count });
+  }
+  const maxW = Math.max(...weeks.map(w => w.count), 1);
+  const chart = document.getElementById('growthChart');
+  const labels = document.getElementById('growthLabels');
+  chart.innerHTML = weeks.map(w => `<div class="bar" style="flex:1;height:${Math.max(4, (w.count/maxW)*100)}%;background:linear-gradient(180deg,var(--green),var(--teal));border-radius:4px 4px 0 0" title="${w.count} registros"></div>`).join('');
+  labels.innerHTML = weeks.map(w => `<div style="flex:1;text-align:center;font-size:0.6rem;color:var(--muted)">${w.label}</div>`).join('');
+
+  // Donut
+  const planCounts = {};
+  users.forEach(u => { const p = getPlan(u, subs); planCounts[p] = (planCounts[p]||0)+1; });
+  const planColors = { Pro: '#8b5cf6', Trial: '#f59e0b', Free: '#94a3b8', Cancelled: '#ef4444' };
+  const planOrder = ['Pro','Trial','Free','Cancelled'];
+  const total = users.length || 1;
+  setText('donutTotal', users.length);
+  let offset = 25;
+  const circles = [];
+  const legend = [];
+  for (const plan of planOrder) {
+    const cnt = planCounts[plan] || 0;
+    if (!cnt) continue;
+    const pct = (cnt / total) * 100;
+    const circ = 2 * Math.PI * 15.9;
+    circles.push(`<circle cx="21" cy="21" r="15.9" fill="none" stroke="${planColors[plan]||'#ccc'}" stroke-width="5" stroke-dasharray="${(pct/100)*circ} ${circ}" stroke-dashoffset="${-offset/100*circ}" transform="rotate(-90 21 21)"/>`);
+    offset += pct;
+    legend.push(`<div class="leg-row"><span class="leg-name"><span class="leg-dot" style="background:${planColors[plan]||'#ccc'}"></span>${plan}</span><span class="leg-val">${cnt}</span></div>`);
+  }
+  document.getElementById('donutSvg').innerHTML = `<circle cx="21" cy="21" r="15.9" fill="none" stroke="#e4ede8" stroke-width="5"/>${circles.join('')}`;
+  document.getElementById('planLegend').innerHTML = legend.join('');
+
+  // Recent signups
+  const recent = [...users].sort((a,b) => new Date(b.created_at||b.inserted_at||0) - new Date(a.created_at||a.inserted_at||0)).slice(0, 8);
+  const badge = document.getElementById('usersBadge');
+  if (users.length > 0) { badge.textContent = users.length; badge.style.display = 'inline-flex'; }
+  setText('userCountLabel', users.length);
+  document.getElementById('recentSignups').innerHTML = recent.length ? recent.map(u => `
+    <tr>
+      <td><div class="avatar-cell"><div class="mini-avatar">${(u.full_name||u.name||u.email||'?')[0].toUpperCase()}</div>${u.full_name||u.name||u.username||'—'}</div></td>
+      <td style="color:var(--muted)">${u.email||'—'}</td>
+      <td><span class="pill ${getPlanClass(getPlan(u,subs))}">${getPlan(u,subs)}</span></td>
+      <td style="color:var(--muted)">${fmtDate(u.created_at||u.inserted_at)}</td>
+    </tr>`).join('') : '<tr><td colspan="4"><div class="empty-state"><div class="icon">👤</div><h4>Sin usuarios</h4><p>No se encontraron registros en la tabla "' + CFG.tables.users + '"</p></div></td></tr>';
+}
+
+// ── USERS ─────────────────────────────────────────────────────────────────────
+function renderUsers(users, subs, portfolios, assets) {
+  ALL_USERS = users; ALL_SUBS = subs; ALL_PORTFOLIOS = portfolios;
+  filterUsers();
+}
+function filterUsers() {
+  const q = (document.getElementById('userSearch').value || '').toLowerCase();
+  const pf = (document.getElementById('planFilter').value || '').toLowerCase();
+  let list = ALL_USERS;
+  if (q) list = list.filter(u => (u.email||'').toLowerCase().includes(q) || (u.full_name||u.name||'').toLowerCase().includes(q));
+  if (pf) list = list.filter(u => getPlan(u, ALL_SUBS).toLowerCase() === pf);
+  const tbody = document.getElementById('usersTable');
+  tbody.innerHTML = list.length ? list.map(u => {
+    const plan = getPlan(u, ALL_SUBS);
+    const uPortfolios = ALL_PORTFOLIOS.filter(p => p.user_id === u.id || p.user_id === u.user_id).length;
+    return `<tr>
+      <td><div class="avatar-cell"><div class="mini-avatar">${(u.full_name||u.name||u.email||'?')[0].toUpperCase()}</div><span>${u.full_name||u.name||u.username||'—'}</span></div></td>
+      <td style="color:var(--muted);font-size:0.78rem">${u.email||'—'}</td>
+      <td><span class="pill ${getPlanClass(plan)}">${plan}</span></td>
+      <td>${uPortfolios}</td>
+      <td>—</td>
+      <td style="color:var(--muted)">${fmtDate(u.created_at||u.inserted_at)}</td>
+      <td style="color:var(--muted)">${fmtDate(u.last_sign_in_at||u.updated_at)}</td>
+    </tr>`;
+  }).join('') : '<tr><td colspan="7"><div class="empty-state"><div class="icon">🔍</div><h4>Sin resultados</h4></div></td></tr>';
+}
+
+// ── REVENUE ───────────────────────────────────────────────────────────────────
+function renderRevenue(users, subs) {
+  const active = subs.filter(s => s.status === 'active');
+  const mrr = active.reduce((a, s) => a + Number(s.amount||s.price||0), 0);
+  const avgTicket = active.length ? (mrr / active.length) : 0;
+  setText('r-mrr', '€' + mrr.toLocaleString('es'));
+  setText('r-arr', '€' + (mrr * 12).toLocaleString('es'));
+  setText('r-avg', '€' + avgTicket.toFixed(2));
+  setText('r-mrr-ch', active.length + ' suscripciones activas');
+
+  document.getElementById('subsTable').innerHTML = active.length ? active.map(s => {
+    const u = users.find(u => u.id === s.user_id || u.user_id === s.user_id);
+    return `<tr>
+      <td>${u?.email || s.user_id?.slice?.(0,8) || '—'}</td>
+      <td><span class="pill pro">${s.plan||s.plan_id||'Pro'}</span></td>
+      <td>€${Number(s.amount||s.price||0).toFixed(2)}</td>
+      <td style="color:var(--muted)">${fmtDate(s.current_period_end||s.next_payment)}</td>
+      <td><span class="pill active">Activa</span></td>
+    </tr>`;
+  }).join('') : '<tr><td colspan="5"><div class="empty-state"><div class="icon">💳</div><h4>Sin suscripciones activas</h4><p>Los datos de suscripciones aparecerán aquí</p></div></td></tr>';
+}
+
+// ── APP STATS ─────────────────────────────────────────────────────────────────
+function renderApp(portfolios, assets) {
+  setText('a-portfolios', portfolios.length.toLocaleString('es'));
+  setText('a-assets', assets.length.toLocaleString('es'));
+  setText('a-txs', '—');
+  setText('a-alerts', '—');
+  const sorted = [...portfolios].sort((a,b) => (b.asset_count||0)-(a.asset_count||0)).slice(0,10);
+  document.getElementById('portfoliosTable').innerHTML = sorted.length ? sorted.map(p => `
+    <tr>
+      <td style="color:var(--muted);font-size:0.78rem">${p.user_id?.slice?.(0,8)||'—'}</td>
+      <td>${p.name||'—'}</td>
+      <td>${p.asset_count||'—'}</td>
+      <td>—</td>
+      <td style="color:var(--muted)">${fmtDate(p.created_at)}</td>
+    </tr>`) .join('')
+  : '<tr><td colspan="5"><div class="empty-state"><div class="icon">📊</div><h4>Sin carteras</h4></div></td></tr>';
+}
+
+// ── ACTIVITY ──────────────────────────────────────────────────────────────────
+function renderActivity(users, subs, portfolios) {
+  const events = [];
+  [...users].slice(0,5).forEach(u => events.push({ icon:'👤', bg:'#ecfdf5', text:`<strong>${u.email||u.full_name||'Usuario'}</strong> se registró`, time: u.created_at||u.inserted_at }));
+  [...subs].filter(s=>s.status==='active').slice(0,5).forEach(s => {
+    const u = users.find(u=>u.id===s.user_id);
+    events.push({ icon:'💳', bg:'#f5f3ff', text:`<strong>${u?.email||'Usuario'}</strong> activó plan ${s.plan||'Pro'}`, time: s.created_at });
+  });
+  [...portfolios].slice(0,5).forEach(p => events.push({ icon:'📊', bg:'#eff6ff', text:`Nueva cartera <strong>"${p.name||'Sin nombre'}"</strong> creada`, time: p.created_at }));
+  events.sort((a,b) => new Date(b.time||0)-new Date(a.time||0));
+  document.getElementById('activityList').innerHTML = events.length ? events.map(e => `
+    <div class="activity-item">
+      <div class="activity-icon" style="background:${e.bg}">${e.icon}</div>
+      <div class="activity-body">
+        <div class="activity-text">${e.text}</div>
+        <div class="activity-time">${fmtDate(e.time)}</div>
+      </div>
+    </div>`).join('') : '<div class="empty-state"><div class="icon">📭</div><h4>Sin actividad reciente</h4></div>';
+}
+
+// ── HELPERS ───────────────────────────────────────────────────────────────────
+function getPlan(user, subs) {
+  const sub = subs.find(s => s.user_id === user.id || s.user_id === user.user_id);
+  if (!sub) return user.plan || 'Free';
+  if (sub.status === 'active') return 'Pro';
+  if (sub.status === 'trialing' || sub.status === 'trial') return 'Trial';
+  if (sub.status === 'canceled' || sub.status === 'cancelled') return 'Cancelled';
+  return sub.plan || 'Free';
+}
+function getPlanClass(p) {
+  return { Pro:'pro', Trial:'trial', Free:'free', Cancelled:'cancelled' }[p] || 'free';
+}
+function fmtDate(d) {
+  if (!d) return '—';
+  try { return new Date(d).toLocaleDateString('es-ES', { day:'2-digit', month:'short', year:'numeric' }); }
+  catch { return '—'; }
+}
+function setText(id, val) {
+  const el = document.getElementById(id); if (el) el.textContent = val;
+}
+
+// ── NAV ───────────────────────────────────────────────────────────────────────
+const SECTION_TITLES = { overview:'Overview', users:'Usuarios', revenue:'Revenue & Planes', app:'App & Carteras', activity:'Actividad', config:'Configuración API' };
+function nav(el, section) {
+  document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  const sec = document.getElementById('sec-' + section);
+  if (sec) sec.classList.add('active');
+  document.getElementById('topbarTitle').textContent = SECTION_TITLES[section] || section;
+}
+
+// ── LOGOUT ────────────────────────────────────────────────────────────────────
+function logout() {
+  sessionStorage.removeItem('fa_admin_ok');
+  sessionStorage.removeItem('fa_admin_user');
+  window.location.replace('/admin/index.html');
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  loadConfig();
+  refreshData();
+  document.getElementById('loadOverlay').style.opacity = '0';
+  setTimeout(() => document.getElementById('loadOverlay').style.display = 'none', 400);
+});
+</script>
+</body>
+</html>

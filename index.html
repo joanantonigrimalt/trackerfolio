@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FinAsset — Gestión de Activos Financieros | Acciones, ETFs, Criptos</title>
+<meta name="description" content="Analiza acciones, ETFs y criptos. Sigue dividendos, explora 150+ mercados globales y consulta a Vera, tu asistente IA. Gratis para empezar.">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#22c47a">
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FinAsset">
+<meta property="og:title" content="FinAsset — Gestión de Activos Financieros">
+<meta property="og:description" content="Analiza acciones, ETFs y criptos. Sigue dividendos, explora 150+ mercados globales y consulta a tu asistente IA. Gratis para empezar.">
+<meta property="og:url" content="https://finasset.app">
+<meta property="og:image" content="https://finasset.app/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="es_ES">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="FinAsset — Gestión de Activos Financieros">
+<meta name="twitter:description" content="Analiza acciones, ETFs y criptos. Sigue dividendos y explora 150+ mercados globales.">
+<meta name="twitter:image" content="https://finasset.app/og-image.png">
+<link rel="canonical" href="https://finasset.app">
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "FinAsset",
+  "url": "https://finasset.app",
+  "description": "Aplicación de gestión de activos financieros: acciones, ETFs, criptos, dividendos y asistente IA.",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR",
+    "description": "Gratis para empezar"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "FinAsset",
+    "url": "https://finasset.app"
+  }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --green:   #22c47a;
+  --green2:  #17a864;
+  --green3:  #0f7347;
+  --teal:    #0bbfa0;
+  --dark:    #0e1f15;
+  --dark2:   #132619;
+  --bg:      #f7faf8;
+  --surface: #ffffff;
+  --text:    #111c16;
+  --text2:   #2d4a39;
+  --muted:   #7a9585;
+  --border:  #e4ede8;
+  --border2: #d0e2d8;
+  --red:     #ef4444;
+  --yellow:  #f59e0b;
+  --blue:    #3b82f6;
+  --purple:  #8b5cf6;
+  --shadow-sm: 0 1px 4px rgba(14,31,21,0.06), 0 4px 16px rgba(14,31,21,0.05);
+  --shadow-md: 0 4px 20px rgba(14,31,21,0.08), 0 12px 40px rgba(14,31,21,0.06);
+  --shadow-lg: 0 8px 40px rgba(14,31,21,0.12), 0 24px 64px rgba(14,31,21,0.08);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: 62px; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px;
+  background: rgba(247,250,248,0.88); backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 800; font-size: 1.05rem; color: var(--text); letter-spacing: -0.03em; }
+.logo-mark { width: 32px; height: 32px; border-radius: 10px; background: linear-gradient(135deg, var(--green) 0%, var(--teal) 100%); display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 12px rgba(34,196,122,0.35); }
+.logo-mark svg { width: 17px; height: 17px; color: #fff; }
+.nav-right { display: flex; align-items: center; gap: 8px; }
+.nav-link { font-size: 0.82rem; font-weight: 600; color: var(--muted); text-decoration: none; padding: 6px 12px; border-radius: 8px; transition: all 0.18s; }
+.nav-link:hover { color: var(--text); background: var(--border); }
+.nav-btn-ghost { font-size: 0.82rem; font-weight: 700; color: var(--text2); text-decoration: none; padding: 8px 18px; border-radius: 10px; border: 1.5px solid var(--border2); background: var(--surface); box-shadow: var(--shadow-sm); transition: all 0.18s; display: flex; align-items: center; gap: 7px; }
+.nav-btn-ghost:hover { border-color: var(--green); color: var(--green3); box-shadow: 0 0 0 3px rgba(34,196,122,0.1); }
+.nav-btn-green { font-size: 0.82rem; font-weight: 700; text-decoration: none; padding: 8px 18px; border-radius: 10px; background: linear-gradient(135deg, var(--green) 0%, var(--green2) 100%); color: #fff; box-shadow: 0 2px 12px rgba(34,196,122,0.4); transition: all 0.2s; display: flex; align-items: center; gap: 7px; }
+.nav-btn-green:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(34,196,122,0.45); }
+@media (max-width: 640px) { nav { padding: 0 20px; } .nav-link { display: none; } }
+
+/* HERO */
+.hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 110px 24px 40px; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; inset: 0; z-index: 0; background: radial-gradient(ellipse 70% 50% at 50% -5%, rgba(34,196,122,0.13) 0%, transparent 65%), radial-gradient(ellipse 50% 40% at 10% 90%, rgba(11,191,160,0.07) 0%, transparent 60%), radial-gradient(ellipse 40% 40% at 90% 80%, rgba(59,130,246,0.05) 0%, transparent 60%); }
+.hero::after { content: ''; position: absolute; inset: 0; z-index: 0; background-image: radial-gradient(circle, rgba(34,196,122,0.12) 1px, transparent 1px); background-size: 32px 32px; mask-image: radial-gradient(ellipse 90% 90% at 50% 50%, black 30%, transparent 100%); }
+.hero-content { position: relative; z-index: 2; max-width: 800px; }
+.badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(34,196,122,0.08); border: 1.5px solid rgba(34,196,122,0.22); border-radius: 100px; padding: 5px 14px 5px 7px; margin-bottom: 28px; font-size: 0.72rem; font-weight: 700; color: var(--green3); letter-spacing: 0.05em; text-transform: uppercase; }
+.badge-dot { width: 20px; height: 20px; border-radius: 50%; background: rgba(34,196,122,0.12); display: flex; align-items: center; justify-content: center; }
+.badge-dot::after { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px rgba(34,196,122,0.7); animation: blink 2.2s ease-in-out infinite; }
+@keyframes blink { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.8)} }
+.hero h1 { font-size: clamp(2.8rem, 7vw, 5.4rem); font-weight: 800; line-height: 1.0; letter-spacing: -0.05em; margin-bottom: 22px; color: var(--text); }
+.hero h1 em { font-style: normal; background: linear-gradient(135deg, var(--green) 0%, var(--teal) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero-sub { font-size: clamp(0.95rem, 2vw, 1.1rem); line-height: 1.75; color: var(--muted); max-width: 480px; margin: 0 auto 44px; font-weight: 400; }
+.cta-group { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; }
+.btn { display: inline-flex; align-items: center; gap: 9px; padding: 15px 26px; border-radius: 14px; font-family: inherit; font-size: 0.94rem; font-weight: 700; text-decoration: none; border: none; cursor: pointer; transition: all 0.22s cubic-bezier(0.34, 1.56, 0.64, 1); position: relative; overflow: hidden; white-space: nowrap; }
+.btn:active { transform: scale(0.97) !important; }
+.btn-web { background: var(--dark); color: #fff; box-shadow: 0 4px 20px rgba(14,31,21,0.25), 0 1px 0 rgba(255,255,255,0.06) inset; }
+.btn-web:hover { transform: translateY(-3px); box-shadow: 0 12px 36px rgba(14,31,21,0.3); background: #1a3322; }
+.btn-web .btn-arrow { width: 22px; height: 22px; border-radius: 6px; background: rgba(34,196,122,0.25); display: flex; align-items: center; justify-content: center; transition: transform 0.2s; }
+.btn-web:hover .btn-arrow { transform: translateX(2px); }
+.btn-app { background: var(--surface); color: var(--text2); border: 1.5px solid var(--border2); box-shadow: var(--shadow-sm); }
+.btn-app:hover { transform: translateY(-3px); border-color: var(--green); box-shadow: 0 8px 24px rgba(14,31,21,0.1), 0 0 0 3px rgba(34,196,122,0.1); color: var(--green3); }
+.btn-icon { width: 20px; height: 20px; display:flex;align-items:center;justify-content:center; flex-shrink:0; }
+.trust { display: flex; align-items: center; gap: 8px; justify-content: center; flex-wrap: wrap; font-size: 0.77rem; color: var(--muted); font-weight: 500; }
+.trust-sep { width: 3px; height: 3px; background: var(--border2); border-radius: 50%; }
+.trust-check { color: var(--green); font-weight: 700; }
+
+/* FLOATING CARDS */
+.cards-scene { position: relative; z-index: 2; width: 100%; max-width: 920px; height: 380px; margin: 32px auto 0; pointer-events: none; }
+.card-main { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%) rotate(-1deg); width: 310px; background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 22px; box-shadow: var(--shadow-lg); animation: float1 6s ease-in-out infinite; }
+@keyframes float1 { 0%,100%{ transform: translate(-50%,-50%) rotate(-1deg); } 50%{ transform: translate(-50%,-55%) rotate(-1deg); } }
+.card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.card-label { font-size: 0.65rem; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }
+.card-badge { font-size: 0.62rem; font-weight: 800; padding: 3px 9px; border-radius: 7px; }
+.badge-up { background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
+.badge-dn { background: #fef2f2; color: var(--red); border: 1px solid #fecaca; }
+.portfolio-val { font-size: 1.85rem; font-weight: 800; color: var(--text); letter-spacing: -0.04em; margin-bottom: 2px; }
+.portfolio-sub { font-size: 0.72rem; color: var(--muted); margin-bottom: 16px; }
+.portfolio-sub span { color: var(--green2); font-weight: 700; }
+.spark { width: 100%; height: 44px; overflow: hidden; border-radius: 8px; margin-bottom: 14px; }
+.spark svg { width: 100%; height: 100%; }
+.asset-row { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-top: 1px solid var(--border); }
+.asset-icon { width: 28px; height: 28px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 0.58rem; font-weight: 800; flex-shrink: 0; }
+.asset-info { flex: 1; min-width: 0; }
+.asset-name { font-size: 0.72rem; font-weight: 700; color: var(--text); }
+.asset-sub  { font-size: 0.6rem; color: var(--muted); }
+.asset-val  { text-align: right; }
+.asset-price { font-size: 0.75rem; font-weight: 700; color: var(--text); }
+.asset-chg  { font-size: 0.6rem; font-weight: 700; }
+.up { color: #059669; }
+.dn { color: var(--red); }
+.card-side-l { position: absolute; left: 20px; top: 50%; transform: translateY(-50%) rotate(-4deg); width: 196px; background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 16px; box-shadow: var(--shadow-md); animation: float2 7s ease-in-out infinite; }
+@keyframes float2 { 0%,100%{ transform: translateY(-50%) rotate(-4deg); } 50%{ transform: translateY(-58%) rotate(-4deg); } }
+.card-side-r { position: absolute; right: 20px; top: 45%; transform: translateY(-50%) rotate(3.5deg); width: 200px; background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 16px; box-shadow: var(--shadow-md); animation: float3 5.5s ease-in-out infinite; }
+@keyframes float3 { 0%,100%{ transform: translateY(-50%) rotate(3.5deg); } 50%{ transform: translateY(-43%) rotate(3.5deg); } }
+.mini-label { font-size: 0.58rem; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }
+.mini-ticker { font-size: 0.9rem; font-weight: 800; color: var(--text); letter-spacing: -0.02em; }
+.mini-price  { font-size: 1.15rem; font-weight: 800; color: var(--text); letter-spacing: -0.03em; margin: 3px 0 2px; }
+.mini-chg    { font-size: 0.68rem; font-weight: 700; }
+.mini-bar    { height: 3px; border-radius: 2px; margin-top: 10px; background: var(--border); overflow: hidden; }
+.mini-fill   { height: 100%; border-radius: 2px; }
+.div-row { display: flex; align-items: center; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid var(--border); }
+.div-row:last-child { border: none; }
+.div-name { font-size: 0.63rem; font-weight: 700; color: var(--text2); }
+.div-amt  { font-size: 0.63rem; font-weight: 800; color: var(--green2); }
+.div-date { font-size: 0.56rem; color: var(--muted); }
+@media (max-width: 760px) { .cards-scene { height: 260px; } .card-side-l, .card-side-r { display: none; } .card-main { width: 270px; } .portfolio-val { font-size: 1.5rem; } }
+
+/* STATS */
+.stats-bar { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 32px 40px; display: flex; justify-content: center; }
+.stat { flex: 1; max-width: 220px; text-align: center; padding: 0 32px; border-right: 1px solid var(--border); }
+.stat:last-child { border: none; }
+.stat-val { font-size: 2rem; font-weight: 800; letter-spacing: -0.05em; color: var(--text); line-height: 1; }
+.stat-val span { color: var(--green); }
+.stat-label { font-size: 0.73rem; color: var(--muted); font-weight: 500; margin-top: 5px; }
+@media (max-width: 640px) { .stats-bar { padding: 20px; flex-wrap: wrap; } .stat { min-width: 50%; padding: 12px 0; border-right: none; border-bottom: 1px solid var(--border); } .stat:nth-child(3), .stat:last-child { border-bottom: none; } .stat-val { font-size: 1.5rem; } }
+
+/* FEATURES */
+.features { padding: 96px 40px; max-width: 1140px; margin: 0 auto; }
+.eyebrow { font-size: 0.68rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green2); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+.eyebrow::before { content:''; width:20px;height:2px;background:var(--green);border-radius:2px; }
+.features h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.1; color: var(--text); max-width: 520px; margin-bottom: 12px; }
+.features > p { font-size: 0.95rem; color: var(--muted); max-width: 420px; line-height: 1.7; margin-bottom: 52px; }
+.feat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.feat { background: var(--surface); border: 1px solid var(--border); border-radius: 22px; padding: 28px; transition: all 0.25s; cursor: default; position: relative; overflow: hidden; }
+.feat::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(34,196,122,0.04) 0%, transparent 60%); opacity: 0; transition: opacity 0.25s; }
+.feat:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); border-color: var(--border2); }
+.feat:hover::after { opacity: 1; }
+.feat-ico { width: 46px; height: 46px; border-radius: 13px; display: flex; align-items: center; justify-content: center; font-size: 1.35rem; margin-bottom: 16px; }
+.feat h3 { font-size: 0.95rem; font-weight: 800; color: var(--text); letter-spacing: -0.02em; margin-bottom: 7px; }
+.feat p  { font-size: 0.8rem; color: var(--muted); line-height: 1.65; }
+.feat-big { grid-column: span 2; display: flex; gap: 24px; background: linear-gradient(135deg, #f0fdf7 0%, #f7faf8 100%); border-color: rgba(34,196,122,0.2); }
+.feat-big:hover { border-color: rgba(34,196,122,0.35); }
+.feat-big .feat-text { flex: 1; }
+.feat-big-visual { flex-shrink: 0; width: 176px; display: flex; flex-direction: column; gap: 7px; justify-content: center; }
+.ticker-chip { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 9px 12px; display: flex; align-items: center; gap: 9px; box-shadow: var(--shadow-sm); }
+.chip-icon { width: 26px; height: 26px; border-radius: 7px; display:flex;align-items:center;justify-content:center; font-size:0.6rem;font-weight:800;flex-shrink:0; }
+.chip-name { font-size: 0.7rem; font-weight: 800; color: var(--text); }
+.chip-val  { font-size: 0.62rem; color: var(--muted); margin-top: 1px; }
+.chip-chg  { margin-left: auto; font-size: 0.65rem; font-weight: 800; }
+@media (max-width: 860px) { .feat-grid { grid-template-columns: 1fr 1fr; } .feat-big { flex-direction: column; grid-column: span 2; } .feat-big-visual { width: 100%; flex-direction: row; flex-wrap: wrap; } .ticker-chip { flex: 1; min-width: 130px; } }
+@media (max-width: 600px) { .feat-grid { grid-template-columns: 1fr; } .feat-big { grid-column: span 1; } .features { padding: 60px 20px; } }
+
+/* CTA FINAL */
+.cta-final { margin: 0 32px 80px; border-radius: 28px; padding: 80px 56px; text-align: center; position: relative; overflow: hidden; background: linear-gradient(150deg, var(--dark) 0%, #1b3828 100%); }
+.cta-final::before { content: ''; position: absolute; width: 600px; height: 300px; top: -80px; left: 50%; transform: translateX(-50%); background: radial-gradient(ellipse, rgba(34,196,122,0.2) 0%, transparent 70%); pointer-events: none; }
+.cta-final::after { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px); background-size: 28px 28px; mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%); }
+.cta-final-inner { position: relative; z-index: 1; }
+.cta-final h2 { font-size: clamp(1.9rem, 4vw, 3rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.1; color: #fff; margin-bottom: 14px; }
+.cta-final h2 em { font-style: normal; background: linear-gradient(135deg, var(--green) 0%, var(--teal) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.cta-final p { font-size: 0.98rem; color: rgba(255,255,255,0.42); max-width: 380px; margin: 0 auto 36px; line-height: 1.7; }
+.cta-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.btn-cta-web { background: linear-gradient(135deg, var(--green) 0%, var(--green2) 100%); color: #fff; padding: 15px 26px; border-radius: 14px; font-family: inherit; font-size: 0.94rem; font-weight: 700; text-decoration: none; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 9px; box-shadow: 0 4px 20px rgba(34,196,122,0.5); transition: all 0.22s cubic-bezier(0.34, 1.56, 0.64, 1); animation: btnPulse 3s ease-in-out infinite; }
+@keyframes btnPulse { 0%,100% { box-shadow: 0 4px 20px rgba(34,196,122,0.4), 0 0 0 0 rgba(34,196,122,0.3); } 50% { box-shadow: 0 4px 20px rgba(34,196,122,0.4), 0 0 0 8px rgba(34,196,122,0); } }
+.btn-cta-web:hover { transform: translateY(-3px); box-shadow: 0 12px 36px rgba(34,196,122,0.55); }
+.btn-cta-app { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.85); padding: 15px 26px; border-radius: 14px; font-family: inherit; font-size: 0.94rem; font-weight: 700; text-decoration: none; border: 1px solid rgba(255,255,255,0.12); cursor: pointer; display: inline-flex; align-items: center; gap: 9px; transition: all 0.22s cubic-bezier(0.34, 1.56, 0.64, 1); backdrop-filter: blur(8px); }
+.btn-cta-app:hover { transform: translateY(-3px); background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.22); }
+@media (max-width: 600px) { .cta-final { margin: 0 16px 60px; padding: 52px 24px; } }
+
+/* FOOTER */
+footer { padding: 28px 40px; background: var(--surface); border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.footer-logo { display: flex; align-items: center; gap: 8px; font-size: 0.88rem; font-weight: 800; color: var(--text); text-decoration: none; letter-spacing: -0.02em; }
+footer p { font-size: 0.75rem; color: var(--muted); }
+footer a { color: var(--muted); text-decoration: none; }
+footer a:hover { color: var(--green2); }
+@media (max-width: 600px) { footer { padding: 24px 20px; justify-content: center; text-align: center; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/">
+    <div class="logo-mark">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+    </div>
+    FinAsset
+  </a>
+  <div class="nav-right">
+    <a class="nav-link" href="#features">Funciones</a>
+    <a class="nav-btn-ghost" href="https://app.finasset.app">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18" stroke-width="3"/></svg>
+      Abrir APP
+    </a>
+    <a class="nav-btn-green" href="https://app.finasset.app">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      Abrir Web
+    </a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="badge"><span class="badge-dot"></span>Gestión de activos en tiempo real</div>
+    <h1>Tu cartera.<br>Tu <em>control</em>.</h1>
+    <p class="hero-sub">Analiza acciones, ETFs y criptos. Sigue dividendos, explora mercados globales y consulta a tu asistente IA. Todo sincronizado, siempre contigo.</p>
+    <div class="cta-group">
+      <a class="btn btn-web" href="https://app.finasset.app">
+        <span class="btn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
+        Abrir FinAsset Web
+        <span class="btn-arrow"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="btn btn-app" href="https://app.finasset.app">
+        <span class="btn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18" stroke-width="3"/></svg></span>
+        Abrir APP
+      </a>
+    </div>
+    <div class="trust">
+      <span class="trust-check">✓ Gratis para empezar</span>
+      <span class="trust-sep"></span><span>Sin tarjeta de crédito</span>
+      <span class="trust-sep"></span><span>Multi-divisa</span>
+      <span class="trust-sep"></span><span>150+ mercados</span>
+    </div>
+  </div>
+
+  <div class="cards-scene">
+    <div class="card-side-l">
+      <div class="mini-label">Próximos dividendos</div>
+      <div class="div-row"><div><div class="div-name">AAPL</div><div class="div-date">28 feb</div></div><div class="div-amt">+€23,40</div></div>
+      <div class="div-row"><div><div class="div-name">JNJ</div><div class="div-date">12 mar</div></div><div class="div-amt">+€18,72</div></div>
+      <div class="div-row"><div><div class="div-name">VUSA</div><div class="div-date">20 mar</div></div><div class="div-amt">+€41,10</div></div>
+    </div>
+    <div class="card-main">
+      <div class="card-header"><span class="card-label">Mi Cartera</span><span class="card-badge badge-up">↑ +2.34%</span></div>
+      <div class="portfolio-val">€48.291</div>
+      <div class="portfolio-sub">Rentabilidad total <span>+€6.840</span></div>
+      <div class="spark">
+        <svg viewBox="0 0 280 44" preserveAspectRatio="none">
+          <defs><linearGradient id="sg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#22c47a" stop-opacity="0.18"/><stop offset="100%" stop-color="#22c47a" stop-opacity="0"/></linearGradient></defs>
+          <path d="M0 36 C20 34 40 30 60 26 C80 22 100 18 120 16 C140 14 160 20 180 14 C200 8 220 6 240 4 C255 3 268 3 280 2" stroke="#22c47a" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M0 36 C20 34 40 30 60 26 C80 22 100 18 120 16 C140 14 160 20 180 14 C200 8 220 6 240 4 C255 3 268 3 280 2 L280 44 L0 44Z" fill="url(#sg)"/>
+        </svg>
+      </div>
+      <div class="asset-row"><div class="asset-icon" style="background:#eff6ff;color:#3b82f6">AAPL</div><div class="asset-info"><div class="asset-name">Apple Inc.</div><div class="asset-sub">12 acciones</div></div><div class="asset-val"><div class="asset-price">€224,80</div><div class="asset-chg up">+1.2%</div></div></div>
+      <div class="asset-row"><div class="asset-icon" style="background:#fffbeb;color:#d97706">NVDA</div><div class="asset-info"><div class="asset-name">Nvidia Corp.</div><div class="asset-sub">5 acciones</div></div><div class="asset-val"><div class="asset-price">€872,40</div><div class="asset-chg up">+3.8%</div></div></div>
+      <div class="asset-row"><div class="asset-icon" style="background:#fef2f2;color:#ef4444">TSLA</div><div class="asset-info"><div class="asset-name">Tesla Inc.</div><div class="asset-sub">8 acciones</div></div><div class="asset-val"><div class="asset-price">€183,50</div><div class="asset-chg dn">−0.6%</div></div></div>
+    </div>
+    <div class="card-side-r">
+      <div class="mini-label">Cripto</div>
+      <div class="mini-ticker">Bitcoin · BTC</div>
+      <div class="mini-price">€61.240</div>
+      <div class="mini-chg up">↑ +4.21% hoy</div>
+      <div class="mini-bar"><div class="mini-fill" style="width:68%;background:linear-gradient(90deg,var(--green),var(--teal))"></div></div>
+      <div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--border)">
+        <div class="mini-label" style="margin-bottom:4px">Ethereum · ETH</div>
+        <div class="mini-price" style="font-size:1rem">€3.284</div>
+        <div class="mini-chg dn">↓ −0.84%</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stats-bar">
+  <div class="stat"><div class="stat-val"><span>150</span>+</div><div class="stat-label">Mercados globales</div></div>
+  <div class="stat"><div class="stat-val"><span>12</span>K+</div><div class="stat-label">Inversores activos</div></div>
+  <div class="stat"><div class="stat-val">€<span>2.4</span>B</div><div class="stat-label">En carteras gestionadas</div></div>
+  <div class="stat"><div class="stat-val"><span>99.9</span>%</div><div class="stat-label">Uptime garantizado</div></div>
+</div>
+
+<section class="features" id="features">
+  <div class="eyebrow">Funciones</div>
+  <h2>Cada herramienta que necesitas para invertir mejor</h2>
+  <p>Desde el análisis técnico hasta la fiscalidad, FinAsset cubre cada ángulo de tu vida financiera.</p>
+  <div class="feat-grid">
+    <div class="feat feat-big">
+      <div class="feat-text">
+        <div class="feat-ico" style="background:#ecfdf5">📊</div>
+        <h3>Análisis avanzado de activos</h3>
+        <p>Gráficos interactivos, ratios fundamentales, comparativas históricas y señales técnicas para cada activo de tu cartera.</p>
+      </div>
+      <div class="feat-big-visual">
+        <div class="ticker-chip"><div class="chip-icon" style="background:#eff6ff;color:#3b82f6">MSFT</div><div><div class="chip-name">Microsoft</div><div class="chip-val">€412.80</div></div><div class="chip-chg up">+2.1%</div></div>
+        <div class="ticker-chip"><div class="chip-icon" style="background:#fffbeb;color:#d97706">AMZN</div><div><div class="chip-name">Amazon</div><div class="chip-val">€189.40</div></div><div class="chip-chg up">+0.8%</div></div>
+        <div class="ticker-chip"><div class="chip-icon" style="background:#f5f3ff;color:#7c3aed">META</div><div><div class="chip-name">Meta</div><div class="chip-val">€524.60</div></div><div class="chip-chg dn">−1.2%</div></div>
+      </div>
+    </div>
+    <div class="feat"><div class="feat-ico" style="background:#ecfdf5">💸</div><h3>Control de dividendos</h3><p>Calendario de cobros, historial y proyección de ingresos pasivos. Nunca pierdas un dividendo.</p></div>
+    <div class="feat"><div class="feat-ico" style="background:#f5f3ff">🤖</div><h3>Asistente IA — Vera</h3><p>Pregúntale cualquier cosa sobre tu cartera. Vera analiza, compara y sugiere en segundos.</p></div>
+    <div class="feat"><div class="feat-ico" style="background:#eff6ff">🌍</div><h3>Mercados globales</h3><p>Acciones, ETFs, criptos, divisas y materias primas de 150+ bolsas mundiales en tiempo real.</p></div>
+    <div class="feat"><div class="feat-ico" style="background:#fffbeb">🏛️</div><h3>Fiscalidad automática</h3><p>Calcula plusvalías, retenciones y genera reportes listos para tu declaración anual.</p></div>
+    <div class="feat"><div class="feat-ico" style="background:#f0fdfa">💬</div><h3>Foro inversor</h3><p>Conecta con la comunidad, comparte ideas y sigue los portfolios más rentables.</p></div>
+  </div>
+</section>
+
+<div class="cta-final">
+  <div class="cta-final-inner">
+    <h2>Empieza gratis.<br><em>Invierte mejor.</em></h2>
+    <p>Tu cartera siempre sincronizada, en web o en la app. Accede desde cualquier dispositivo.</p>
+    <div class="cta-actions">
+      <a class="btn-cta-web" href="https://app.finasset.app">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        Abrir FinAsset Web
+      </a>
+      <a class="btn-cta-app" href="https://app.finasset.app">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18" stroke-width="3"/></svg>
+        Abrir APP
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <a class="footer-logo" href="/">
+    <div class="logo-mark" style="width:26px;height:26px;border-radius:8px">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+    </div>
+    FinAsset
+  </a>
+  <p>© 2025 FinAsset &nbsp;·&nbsp; <a href="https://finasset.app">finasset.app</a> &nbsp;·&nbsp; <a href="/tracker-dividendos.html">Tracker de dividendos</a></p>
+</footer>
+
+</body>
+</html>
