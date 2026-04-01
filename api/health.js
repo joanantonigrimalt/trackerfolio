@@ -1,56 +1,38 @@
 module.exports = async (req, res) => {
   try {
-    // If DB_PROXY_URL is set, test proxy connection instead of direct DB
-    if (process.env.DB_PROXY_URL) {
-      const proxyUrl = `${process.env.DB_PROXY_URL}/health`;
-      const response = await fetch(proxyUrl, { timeout: 5000 });
-      const data = await response.json();
+    // Supabase mode
+    if (process.env.SUPABASE_URL) {
+      const response = await fetch(`${process.env.SUPABASE_URL}/rest/v1/`, {
+        headers: {
+          'apikey': process.env.SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${process.env.SUPABASE_ANON_KEY}`
+        },
+        timeout: 5000
+      });
 
       return res.status(200).json({
         status: 'ok',
-        message: 'API connected via DB Proxy',
-        mode: 'proxy',
-        proxyUrl: process.env.DB_PROXY_URL,
+        message: 'API connected to Supabase',
+        mode: 'supabase',
         database: {
-          connected: data.status === 'ok'
+          connected: response.ok
         },
         timestamp: new Date().toISOString()
       });
     }
 
-    // Direct DB connection (fallback)
-    const mysql = require('mysql2/promise');
-
-    const pool = mysql.createPool({
-      host:     process.env.MYSQL_HOST || 'localhost',
-      user:     process.env.MYSQL_USER,
-      password: process.env.MYSQL_PASSWORD,
-      database: process.env.MYSQL_DATABASE,
-      waitForConnections: true,
-      connectionLimit: 1,
-      charset: 'utf8mb4',
-    });
-
-    const connection = await pool.getConnection();
-    await connection.query('SELECT 1');
-    connection.release();
-
+    // Fallback
     res.status(200).json({
       status: 'ok',
-      message: 'API and Database connected (direct)',
-      mode: 'direct',
-      database: {
-        host: process.env.MYSQL_HOST,
-        database: process.env.MYSQL_DATABASE,
-        connected: true
-      },
+      message: 'API is running',
+      mode: 'default',
       timestamp: new Date().toISOString()
     });
   } catch (error) {
     res.status(500).json({
       status: 'error',
       message: error.message,
-      mode: process.env.DB_PROXY_URL ? 'proxy' : 'direct',
+      mode: 'supabase',
       database: {
         connected: false
       }
