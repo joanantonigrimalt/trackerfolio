@@ -2,6 +2,7 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
+    { "source": "/auth/(.*)",         "destination": "/api/auth-proxy" },
     { "source": "/admin",             "destination": "/admin/index.html" },
     { "source": "/admin/dashboard",   "destination": "/admin/dashboard.html" },
     { "source": "/desktop",           "destination": "/index.html" },
