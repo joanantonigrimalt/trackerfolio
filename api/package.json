@@ -16,6 +16,7 @@
     "nodemailer": "^6.9.0",
     "web-push": "^3.6.0",
     "express-rate-limit": "^7.0.0",
-    "@anthropic-ai/sdk": "^0.21.0"
+    "@anthropic-ai/sdk": "^0.21.0",
+    "@supabase/supabase-js": "^2.38.0"
   }
 }
