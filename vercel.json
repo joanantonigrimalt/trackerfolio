@@ -4,6 +4,7 @@
   "rewrites": [
     { "source": "/admin",             "destination": "/admin/index.html" },
     { "source": "/admin/dashboard",   "destination": "/admin/dashboard.html" },
+    { "source": "/desktop",           "destination": "/index.html" },
     { "source": "/mobile",            "destination": "/mobile/index.html" },
     { "source": "/tracker-dividendos","destination": "/tracker-dividendos.html" }
   ],
