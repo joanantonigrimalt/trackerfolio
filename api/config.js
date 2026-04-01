@@ -13,10 +13,10 @@ module.exports = (req, res) => {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  // Return public Supabase configuration
+  // Return public Supabase configuration (trim whitespace/newlines)
   res.status(200).json({
-    supabaseUrl: process.env.SUPABASE_URL || '',
-    supabaseAnonKey: process.env.SUPABASE_ANON_KEY || '',
+    supabaseUrl: (process.env.SUPABASE_URL || '').trim(),
+    supabaseAnonKey: (process.env.SUPABASE_ANON_KEY || '').trim(),
     status: 'ok'
   });
 };
