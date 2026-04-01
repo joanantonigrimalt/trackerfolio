@@ -175,9 +175,12 @@ async function doLogin(e) {
   await new Promise(r => setTimeout(r, 600));
 
   const hash = await sha256hex(user + ':' + pass);
-  const EXPECTED = '9cbacaa8aac9c6eb4d27e6f5ecb4561fa76425dba691ff9114512ff8aeb638f1';
+  const ALLOWED = [
+    '9cbacaa8aac9c6eb4d27e6f5ecb4561fa76425dba691ff9114512ff8aeb638f1', // joantonigrimalt
+    'e5dc1cb08f15de44fa37bbe1e33c1c160d1d81b6335e7411632a77c3a09609b1'  // joantonigrimalt@gmail.com
+  ];
 
-  if (hash === EXPECTED) {
+  if (ALLOWED.includes(hash)) {
     sessionStorage.setItem('fa_admin_ok', '1');
     sessionStorage.setItem('fa_admin_user', user);
     window.location.replace('/admin/dashboard.html');

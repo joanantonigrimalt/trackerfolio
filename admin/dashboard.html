@@ -291,9 +291,9 @@ tr:hover td { background: var(--bg); }
       </div>
       <div class="stats-grid" id="overviewStats">
         <div class="stat-card"><div class="stat-icon" style="background:#ecfdf5"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c47a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><div class="stat-label">Usuarios totales</div><div class="stat-value" id="s-users">—</div><div class="stat-change up" id="s-users-ch"></div></div>
-        <div class="stat-card"><div class="stat-icon" style="background:#f0fdf4"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c47a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><div class="stat-label">MRR</div><div class="stat-value" id="s-mrr">—</div><div class="stat-change up" id="s-mrr-ch"></div></div>
-        <div class="stat-card"><div class="stat-icon" style="background:#f5f3ff"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div><div class="stat-label">Suscripciones activas</div><div class="stat-value" id="s-subs">—</div><div class="stat-change" id="s-subs-ch"></div></div>
-        <div class="stat-card"><div class="stat-icon" style="background:#fff7ed"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div><div class="stat-label">Carteras creadas</div><div class="stat-value" id="s-portfolios">—</div><div class="stat-change up" id="s-portfolios-ch"></div></div>
+        <div class="stat-card"><div class="stat-icon" style="background:#f0fdf4"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c47a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="stat-label">Activos últimos 30 días</div><div class="stat-value" id="s-mrr">—</div><div class="stat-change up" id="s-mrr-ch"></div></div>
+        <div class="stat-card"><div class="stat-icon" style="background:#eff6ff"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div><div class="stat-label">Activos registrados</div><div class="stat-value" id="s-subs">—</div><div class="stat-change" id="s-subs-ch"></div></div>
+        <div class="stat-card"><div class="stat-icon" style="background:#fff7ed"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div class="stat-label">Transacciones</div><div class="stat-value" id="s-portfolios">—</div><div class="stat-change up" id="s-portfolios-ch"></div></div>
       </div>
 
       <div class="charts-grid">
@@ -347,11 +347,9 @@ tr:hover td { background: var(--bg); }
             <input type="text" placeholder="Buscar por email…" id="userSearch" oninput="filterUsers()">
           </div>
           <select id="planFilter" onchange="filterUsers()" style="border:1px solid var(--border);border-radius:8px;padding:6px 10px;font-family:inherit;font-size:0.8rem;color:var(--text);background:var(--bg);outline:none;">
-            <option value="">Todos los planes</option>
-            <option value="pro">Pro</option>
-            <option value="trial">Trial</option>
-            <option value="free">Free</option>
-            <option value="cancelled">Cancelled</option>
+            <option value="">Todos</option>
+            <option value="active">Email verificado</option>
+            <option value="free">Sin verificar</option>
           </select>
         </div>
         <div style="overflow-x:auto">
@@ -366,18 +364,18 @@ tr:hover td { background: var(--bg); }
     <!-- ══ REVENUE ══ -->
     <section class="section" id="sec-revenue">
       <div class="section-header">
-        <h2>Revenue & Planes</h2>
-        <p>Facturación y distribución de suscripciones</p>
+        <h2>Crecimiento de usuarios</h2>
+        <p>Métricas de registro y activación</p>
       </div>
       <div class="stats-grid" style="grid-template-columns:repeat(3,1fr)">
-        <div class="stat-card"><div class="stat-label">MRR</div><div class="stat-value" id="r-mrr">—</div><div class="stat-change up" id="r-mrr-ch">Cargando…</div></div>
-        <div class="stat-card"><div class="stat-label">ARR (estimado)</div><div class="stat-value" id="r-arr">—</div></div>
-        <div class="stat-card"><div class="stat-label">Ticket promedio</div><div class="stat-value" id="r-avg">—</div></div>
+        <div class="stat-card"><div class="stat-label">Nuevos este mes</div><div class="stat-value" id="r-mrr">—</div><div class="stat-change up" id="r-mrr-ch">Cargando…</div></div>
+        <div class="stat-card"><div class="stat-label">Nuevos esta semana</div><div class="stat-value" id="r-arr">—</div></div>
+        <div class="stat-card"><div class="stat-label">Emails verificados</div><div class="stat-value" id="r-avg">—</div></div>
       </div>
       <div class="table-card">
-        <div class="table-header"><h3>Suscripciones activas</h3></div>
+        <div class="table-header"><h3>Todos los usuarios</h3></div>
         <table>
-          <thead><tr><th>Usuario</th><th>Plan</th><th>Precio</th><th>Próximo pago</th><th>Estado</th></tr></thead>
+          <thead><tr><th>Email</th><th>Estado</th><th>Plan</th><th>Último acceso</th><th>Registro</th></tr></thead>
           <tbody id="subsTable"><tr><td colspan="5"><div class="empty-state"><div class="icon">⏳</div><h4>Cargando…</h4></div></td></tr></tbody>
         </table>
       </div>
@@ -386,19 +384,19 @@ tr:hover td { background: var(--bg); }
     <!-- ══ APP STATS ══ -->
     <section class="section" id="sec-app">
       <div class="section-header">
-        <h2>App & Carteras</h2>
+        <h2>App & Activos</h2>
         <p>Métricas de uso de la aplicación</p>
       </div>
       <div class="stats-grid">
-        <div class="stat-card"><div class="stat-label">Carteras creadas</div><div class="stat-value" id="a-portfolios">—</div></div>
-        <div class="stat-card"><div class="stat-label">Activos registrados</div><div class="stat-value" id="a-assets">—</div></div>
+        <div class="stat-card"><div class="stat-label">Usuarios con activos</div><div class="stat-value" id="a-portfolios">—</div></div>
+        <div class="stat-card"><div class="stat-label">Activos totales</div><div class="stat-value" id="a-assets">—</div></div>
         <div class="stat-card"><div class="stat-label">Transacciones</div><div class="stat-value" id="a-txs">—</div></div>
-        <div class="stat-card"><div class="stat-label">Alertas activas</div><div class="stat-value" id="a-alerts">—</div></div>
+        <div class="stat-card"><div class="stat-label">Tickers únicos</div><div class="stat-value" id="a-alerts">—</div></div>
       </div>
       <div class="table-card">
-        <div class="table-header"><h3>Top carteras por activos</h3></div>
+        <div class="table-header"><h3>Top usuarios por activos</h3></div>
         <table>
-          <thead><tr><th>Usuario</th><th>Cartera</th><th>Activos</th><th>Valor estimado</th><th>Creada</th></tr></thead>
+          <thead><tr><th>Email</th><th>Nombre</th><th>Activos</th><th>Transacciones</th><th>Registrado</th></tr></thead>
           <tbody id="portfoliosTable"><tr><td colspan="5"><div class="empty-state"><div class="icon">⏳</div><h4>Cargando…</h4></div></td></tr></tbody>
         </table>
       </div>
@@ -422,23 +420,23 @@ tr:hover td { background: var(--bg); }
     <section class="section" id="sec-config">
       <div class="section-header">
         <h2>Configuración API</h2>
-        <p>Conecta el admin panel a tu backend de Supabase</p>
+        <p>Conecta el admin panel a Supabase</p>
       </div>
       <div class="config-section">
         <div class="info-banner">
           <span>ℹ️</span>
-          <span>Las credenciales se guardan en <strong>localStorage</strong> de tu navegador. Nunca salen del dispositivo.</span>
+          <span>La Service Role Key se guarda en <strong>localStorage</strong> de tu navegador. Nunca sale del dispositivo. Encuéntrala en Supabase → Project Settings → API → <em>service_role</em>.</span>
         </div>
         <div class="config-card">
           <h3>Conexión Supabase</h3>
-          <p>Introduce las credenciales de tu proyecto Supabase para cargar datos reales.</p>
+          <p>El proyecto Supabase está preconfigurado. Solo necesitas la Service Role Key para acceder a los datos de usuarios y activos.</p>
           <div id="connStatus" class="connected-indicator not-connected">
             <div class="connection-dot"></div>
             <span id="connStatusText">No conectado</span>
           </div>
           <div class="form-group">
-            <label>Supabase URL</label>
-            <input type="url" id="cfgUrl" class="mono" placeholder="https://xxxxxxxxxxxx.supabase.co" oninput="cfgChanged()">
+            <label>Supabase URL <span style="font-size:0.65rem;color:var(--green2);font-weight:500;text-transform:none">(preconfigurado)</span></label>
+            <input type="url" id="cfgUrl" class="mono" readonly style="opacity:0.6;cursor:default">
           </div>
           <div class="form-group">
             <label>Service Role Key <span style="font-size:0.65rem;color:var(--red);font-weight:500;text-transform:none">(mantén esto en privado)</span></label>
@@ -449,18 +447,6 @@ tr:hover td { background: var(--bg); }
             <button class="btn btn-ghost" onclick="testConnection()">Probar conexión</button>
             <button class="btn btn-danger" onclick="clearConfig()">Borrar credenciales</button>
           </div>
-        </div>
-
-        <div class="config-card">
-          <h3>Nombres de tablas</h3>
-          <p>Personaliza los nombres de tabla según tu esquema de Supabase.</p>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-            <div class="form-group"><label>Tabla usuarios</label><input id="t-users" value="profiles" oninput="cfgChanged()"></div>
-            <div class="form-group"><label>Tabla suscripciones</label><input id="t-subs" value="subscriptions" oninput="cfgChanged()"></div>
-            <div class="form-group"><label>Tabla carteras</label><input id="t-portfolios" value="portfolios" oninput="cfgChanged()"></div>
-            <div class="form-group"><label>Tabla activos</label><input id="t-assets" value="assets" oninput="cfgChanged()"></div>
-          </div>
-          <button class="btn btn-primary" onclick="saveConfig()">Guardar</button>
         </div>
       </div>
     </section>
@@ -480,44 +466,38 @@ tr:hover td { background: var(--bg); }
 })();
 
 // ── STATE ────────────────────────────────────────────────────────────────────
+const SUPABASE_URL = 'https://finasset.app';
+const SUPABASE_SERVICE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJzZXJ2aWNlX3JvbGUiLCJpc3MiOiJmaW5hc3NldCIsImlhdCI6MTc3NDQ1NjUzMywiZXhwIjoyMDkwMDMyNTMzfQ.swzkA8zeu8D-XVou-0Px76p_ScLLPIcQZgm8pSqkSGc';
 let CFG = {
-  url: '', key: '',
-  tables: { users: 'profiles', subs: 'subscriptions', portfolios: 'portfolios', assets: 'assets' }
+  url: SUPABASE_URL, key: SUPABASE_SERVICE_KEY,
+  tables: { assets: 'assets', transactions: 'transactions' }
 };
 let ALL_USERS = [];
-let ALL_SUBS = [];
-let ALL_PORTFOLIOS = [];
+let ALL_ASSETS = [];
+let ALL_TRANSACTIONS = [];
 
 // ── CONFIG LOAD/SAVE ─────────────────────────────────────────────────────────
 function loadConfig() {
   try {
     const saved = JSON.parse(localStorage.getItem('fa_admin_cfg') || '{}');
-    CFG.url = saved.url || '';
-    CFG.key = saved.key || '';
+    CFG.url = SUPABASE_URL; // always use hardcoded URL
+    CFG.key = saved.key || SUPABASE_SERVICE_KEY;
     CFG.tables = { ...CFG.tables, ...(saved.tables || {}) };
   } catch {}
   document.getElementById('cfgUrl').value = CFG.url;
   document.getElementById('cfgKey').value = CFG.key;
-  document.getElementById('t-users').value = CFG.tables.users;
-  document.getElementById('t-subs').value = CFG.tables.subs;
-  document.getElementById('t-portfolios').value = CFG.tables.portfolios;
-  document.getElementById('t-assets').value = CFG.tables.assets;
 }
 function cfgChanged() {}
 function saveConfig() {
-  CFG.url = document.getElementById('cfgUrl').value.trim().replace(/\/$/, '');
+  CFG.url = SUPABASE_URL;
   CFG.key = document.getElementById('cfgKey').value.trim();
-  CFG.tables.users = document.getElementById('t-users').value.trim() || 'profiles';
-  CFG.tables.subs = document.getElementById('t-subs').value.trim() || 'subscriptions';
-  CFG.tables.portfolios = document.getElementById('t-portfolios').value.trim() || 'portfolios';
-  CFG.tables.assets = document.getElementById('t-assets').value.trim() || 'assets';
-  localStorage.setItem('fa_admin_cfg', JSON.stringify(CFG));
+  localStorage.setItem('fa_admin_cfg', JSON.stringify({ key: CFG.key, tables: CFG.tables }));
   refreshData();
 }
 function clearConfig() {
   if (!confirm('¿Borrar credenciales guardadas?')) return;
   localStorage.removeItem('fa_admin_cfg');
-  CFG = { url:'', key:'', tables:{ users:'profiles', subs:'subscriptions', portfolios:'portfolios', assets:'assets' } };
+  CFG = { url: SUPABASE_URL, key: '', tables: { assets: 'assets', transactions: 'transactions' } };
   loadConfig();
   setStatus(false, 'No conectado');
 }
@@ -527,11 +507,41 @@ async function sbFetch(table, params = '') {
   if (!CFG.url || !CFG.key) return null;
   try {
     const res = await fetch(`${CFG.url}/rest/v1/${table}${params}`, {
-      headers: { 'apikey': CFG.key, 'Authorization': `Bearer ${CFG.key}`, 'Accept-Profile': 'public' }
+      headers: { 'apikey': CFG.key, 'Authorization': `Bearer ${CFG.key}`, 'Accept-Profile': 'public', 'Prefer': 'count=exact' }
     });
     if (!res.ok) return null;
     return res.json();
   } catch { return null; }
+}
+
+async function sbFetchAuthUsers() {
+  if (!CFG.url || !CFG.key) return null;
+  try {
+    let allUsers = [];
+    let page = 1;
+    while (true) {
+      const res = await fetch(`${CFG.url}/auth/v1/admin/users?page=${page}&per_page=500`, {
+        headers: { 'apikey': CFG.key, 'Authorization': `Bearer ${CFG.key}` }
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        console.error('Auth API error:', res.status, data);
+        return null;
+      }
+      // Handle both {users:[...]} and direct array responses
+      const batch = Array.isArray(data) ? data
+                  : Array.isArray(data.users) ? data.users
+                  : [];
+      if (batch.length === 0 && page === 1) {
+        // Log full response to help debug empty results
+        console.warn('Auth API returned 0 users. Full response:', JSON.stringify(data));
+      }
+      allUsers = allUsers.concat(batch);
+      if (batch.length < 500) break;
+      page++;
+    }
+    return allUsers;
+  } catch(e) { console.error('sbFetchAuthUsers exception:', e); return null; }
 }
 
 // ── CONNECTION ────────────────────────────────────────────────────────────────
@@ -547,71 +557,79 @@ function setStatus(ok, text) {
 }
 
 async function testConnection() {
-  if (!CFG.url || !CFG.key) { alert('Introduce URL y Key primero'); return; }
+  if (!CFG.key) { alert('Introduce la Service Role Key primero'); return; }
   setStatus(false, 'Probando…');
-  const data = await sbFetch(CFG.tables.users, '?select=id&limit=1');
-  if (data !== null) {
+  const res = await fetch(`${CFG.url}/auth/v1/admin/users?per_page=1`, {
+    headers: { 'apikey': CFG.key, 'Authorization': `Bearer ${CFG.key}` }
+  });
+  if (res.ok) {
+    const data = await res.json();
+    const count = data.total || (Array.isArray(data.users) ? data.users.length : 0);
     setStatus(true, 'Conectado ✓');
-    alert('✅ Conexión OK — tabla "' + CFG.tables.users + '" accesible');
+    alert('✅ Conexión OK — ' + count + ' usuarios en Supabase Auth');
   } else {
+    const err = await res.text();
     setStatus(false, 'Error de conexión');
-    alert('❌ No se pudo conectar. Revisa URL, Key y permisos de la tabla.');
+    alert('❌ Error ' + res.status + ': ' + err.slice(0, 200) + '\n\nAsegúrate de usar la Service Role Key (no la anon key).');
   }
 }
 
 // ── DATA LOAD ─────────────────────────────────────────────────────────────────
 async function refreshData() {
-  if (!CFG.url || !CFG.key) {
+  if (!CFG.key) {
     showNoConfig();
     return;
   }
   setStatus(false, 'Cargando…');
-  const [users, subs, portfolios, assets] = await Promise.all([
-    sbFetch(CFG.tables.users, '?select=*&order=created_at.desc&limit=500'),
-    sbFetch(CFG.tables.subs, '?select=*&order=created_at.desc&limit=500'),
-    sbFetch(CFG.tables.portfolios, '?select=*&order=created_at.desc&limit=500'),
-    sbFetch(CFG.tables.assets, '?select=*&limit=500'),
+  const [users, assets, transactions] = await Promise.all([
+    sbFetchAuthUsers(),
+    sbFetch(CFG.tables.assets, '?select=*&order=created_at.desc&limit=1000'),
+    sbFetch(CFG.tables.transactions, '?select=*&order=created_at.desc&limit=1000'),
   ]);
 
   const ok = users !== null;
-  setStatus(ok, ok ? 'Conectado' : 'Error');
+  const statusMsg = ok
+    ? (users.length === 0 ? `Conectado (0 usuarios — abre la consola para debug)` : `Conectado — ${users.length} usuarios`)
+    : 'Error al cargar — revisa la Service Role Key';
+  setStatus(ok, statusMsg);
 
   ALL_USERS = Array.isArray(users) ? users : [];
-  ALL_SUBS = Array.isArray(subs) ? subs : [];
-  ALL_PORTFOLIOS = Array.isArray(portfolios) ? portfolios : [];
-  const allAssets = Array.isArray(assets) ? assets : [];
+  ALL_ASSETS = Array.isArray(assets) ? assets : [];
+  ALL_TRANSACTIONS = Array.isArray(transactions) ? transactions : [];
 
-  renderOverview(ALL_USERS, ALL_SUBS, ALL_PORTFOLIOS, allAssets);
-  renderUsers(ALL_USERS, ALL_SUBS, ALL_PORTFOLIOS, allAssets);
-  renderRevenue(ALL_USERS, ALL_SUBS);
-  renderApp(ALL_PORTFOLIOS, allAssets);
-  renderActivity(ALL_USERS, ALL_SUBS, ALL_PORTFOLIOS);
+  renderOverview(ALL_USERS, ALL_ASSETS, ALL_TRANSACTIONS);
+  renderUsers(ALL_USERS, ALL_ASSETS, ALL_TRANSACTIONS);
+  renderRevenue(ALL_USERS);
+  renderApp(ALL_ASSETS, ALL_TRANSACTIONS);
+  renderActivity(ALL_USERS, ALL_ASSETS, ALL_TRANSACTIONS);
   document.getElementById('overviewDate').textContent = 'Actualizado: ' + new Date().toLocaleString('es-ES');
 }
 
 function showNoConfig() {
-  const msg = '<tr><td colspan="7"><div class="empty-state"><div class="icon">🔌</div><h4>Sin conexión</h4><p>Ve a <strong>Configuración API</strong> e introduce tus credenciales de Supabase</p></div></td></tr>';
-  ['recentSignups','usersTable','subsTable','portfoliosTable'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.innerHTML = msg;
-  });
+  const msg7 = '<tr><td colspan="7"><div class="empty-state"><div class="icon">🔑</div><h4>Service Role Key requerida</h4><p>Ve a <strong>Configuración API</strong> e introduce la Service Role Key de Supabase</p></div></td></tr>';
+  const msg5 = '<tr><td colspan="5"><div class="empty-state"><div class="icon">🔑</div><h4>Service Role Key requerida</h4><p>Ve a <strong>Configuración API</strong></p></div></td></tr>';
+  const el7 = document.getElementById('usersTable'); if (el7) el7.innerHTML = msg7;
+  const el5a = document.getElementById('portfoliosTable'); if (el5a) el5a.innerHTML = msg5;
+  const el5b = document.getElementById('subsTable'); if (el5b) el5b.innerHTML = msg5;
+  const elR = document.getElementById('recentSignups');
+  if (elR) elR.innerHTML = '<tr><td colspan="4"><div class="empty-state"><div class="icon">🔑</div><h4>Configura la API primero</h4></div></td></tr>';
   ['s-users','s-mrr','s-subs','s-portfolios','r-mrr','r-arr','r-avg','a-portfolios','a-assets','a-txs','a-alerts'].forEach(id => {
     const el = document.getElementById(id); if (el) el.textContent = '—';
   });
-  setStatus(false, 'No configurado');
-  document.getElementById('activityList').innerHTML = '<div class="empty-state"><div class="icon">🔌</div><h4>Sin conexión</h4><p>Configura la API primero</p></div>';
+  setStatus(false, 'Service Role Key no configurada');
+  document.getElementById('activityList').innerHTML = '<div class="empty-state"><div class="icon">🔑</div><h4>Configura la API primero</h4><p>Ve a Configuración API e introduce la Service Role Key</p></div>';
 }
 
 // ── OVERVIEW ─────────────────────────────────────────────────────────────────
-function renderOverview(users, subs, portfolios, assets) {
-  const activeSubs = subs.filter(s => s.status === 'active');
-  const trialSubs = subs.filter(s => s.status === 'trialing' || s.status === 'trial');
-  const mrr = activeSubs.reduce((a, s) => a + (Number(s.amount || s.price || 0)), 0);
+function renderOverview(users, assets, transactions) {
+  const now = new Date();
+  const d30 = new Date(now - 30 * 86400000);
+  const activeUsers = users.filter(u => u.last_sign_in_at && new Date(u.last_sign_in_at) >= d30).length;
 
   setText('s-users', users.length.toLocaleString('es'));
-  setText('s-mrr', '€' + mrr.toLocaleString('es'));
-  setText('s-subs', activeSubs.length.toLocaleString('es'));
-  setText('s-portfolios', portfolios.length.toLocaleString('es'));
+  setText('s-mrr', activeUsers.toLocaleString('es'));
+  setText('s-subs', assets.length.toLocaleString('es'));
+  setText('s-portfolios', transactions.length.toLocaleString('es'));
 
   // Growth chart (last 8 weeks)
   const weeks = [];
@@ -619,7 +637,7 @@ function renderOverview(users, subs, portfolios, assets) {
     const d = new Date(); d.setDate(d.getDate() - i * 7);
     const nextD = new Date(d); nextD.setDate(nextD.getDate() + 7);
     const count = users.filter(u => {
-      const c = new Date(u.created_at || u.inserted_at || 0);
+      const c = new Date(u.created_at || 0);
       return c >= d && c < nextD;
     }).length;
     weeks.push({ label: 'S' + (8 - i), count });
@@ -630,118 +648,161 @@ function renderOverview(users, subs, portfolios, assets) {
   chart.innerHTML = weeks.map(w => `<div class="bar" style="flex:1;height:${Math.max(4, (w.count/maxW)*100)}%;background:linear-gradient(180deg,var(--green),var(--teal));border-radius:4px 4px 0 0" title="${w.count} registros"></div>`).join('');
   labels.innerHTML = weeks.map(w => `<div style="flex:1;text-align:center;font-size:0.6rem;color:var(--muted)">${w.label}</div>`).join('');
 
-  // Donut
-  const planCounts = {};
-  users.forEach(u => { const p = getPlan(u, subs); planCounts[p] = (planCounts[p]||0)+1; });
-  const planColors = { Pro: '#8b5cf6', Trial: '#f59e0b', Free: '#94a3b8', Cancelled: '#ef4444' };
-  const planOrder = ['Pro','Trial','Free','Cancelled'];
+  // Donut: users by email provider
+  const providers = {};
+  users.forEach(u => {
+    const domain = (u.email || '').split('@')[1] || 'Desconocido';
+    const grp = domain.includes('gmail') ? 'Gmail' : domain.includes('outlook') || domain.includes('hotmail') ? 'Microsoft' : domain.includes('yahoo') ? 'Yahoo' : 'Otros';
+    providers[grp] = (providers[grp] || 0) + 1;
+  });
+  const provColors = { Gmail: '#22c47a', Microsoft: '#3b82f6', Yahoo: '#f59e0b', Otros: '#94a3b8' };
   const total = users.length || 1;
   setText('donutTotal', users.length);
   let offset = 25;
   const circles = [];
   const legend = [];
-  for (const plan of planOrder) {
-    const cnt = planCounts[plan] || 0;
-    if (!cnt) continue;
+  for (const [grp, cnt] of Object.entries(providers)) {
     const pct = (cnt / total) * 100;
     const circ = 2 * Math.PI * 15.9;
-    circles.push(`<circle cx="21" cy="21" r="15.9" fill="none" stroke="${planColors[plan]||'#ccc'}" stroke-width="5" stroke-dasharray="${(pct/100)*circ} ${circ}" stroke-dashoffset="${-offset/100*circ}" transform="rotate(-90 21 21)"/>`);
+    circles.push(`<circle cx="21" cy="21" r="15.9" fill="none" stroke="${provColors[grp]||'#ccc'}" stroke-width="5" stroke-dasharray="${(pct/100)*circ} ${circ}" stroke-dashoffset="${-offset/100*circ}" transform="rotate(-90 21 21)"/>`);
     offset += pct;
-    legend.push(`<div class="leg-row"><span class="leg-name"><span class="leg-dot" style="background:${planColors[plan]||'#ccc'}"></span>${plan}</span><span class="leg-val">${cnt}</span></div>`);
+    legend.push(`<div class="leg-row"><span class="leg-name"><span class="leg-dot" style="background:${provColors[grp]||'#ccc'}"></span>${grp}</span><span class="leg-val">${cnt}</span></div>`);
   }
   document.getElementById('donutSvg').innerHTML = `<circle cx="21" cy="21" r="15.9" fill="none" stroke="#e4ede8" stroke-width="5"/>${circles.join('')}`;
-  document.getElementById('planLegend').innerHTML = legend.join('');
+  document.getElementById('planLegend').innerHTML = legend.join('') || '<div class="leg-row"><span class="leg-name">Sin datos</span></div>';
 
   // Recent signups
-  const recent = [...users].sort((a,b) => new Date(b.created_at||b.inserted_at||0) - new Date(a.created_at||a.inserted_at||0)).slice(0, 8);
+  const recent = [...users].sort((a,b) => new Date(b.created_at||0) - new Date(a.created_at||0)).slice(0, 8);
   const badge = document.getElementById('usersBadge');
   if (users.length > 0) { badge.textContent = users.length; badge.style.display = 'inline-flex'; }
   setText('userCountLabel', users.length);
-  document.getElementById('recentSignups').innerHTML = recent.length ? recent.map(u => `
-    <tr>
-      <td><div class="avatar-cell"><div class="mini-avatar">${(u.full_name||u.name||u.email||'?')[0].toUpperCase()}</div>${u.full_name||u.name||u.username||'—'}</div></td>
+  document.getElementById('recentSignups').innerHTML = recent.length ? recent.map(u => {
+    const emailConfirmed = u.email_confirmed_at ? 'active' : 'trial';
+    const emailLabel = u.email_confirmed_at ? 'Verificado' : 'Sin verificar';
+    return `<tr>
+      <td><div class="avatar-cell"><div class="mini-avatar">${(u.email||'?')[0].toUpperCase()}</div>${u.user_metadata?.full_name || u.user_metadata?.name || '—'}</div></td>
       <td style="color:var(--muted)">${u.email||'—'}</td>
-      <td><span class="pill ${getPlanClass(getPlan(u,subs))}">${getPlan(u,subs)}</span></td>
-      <td style="color:var(--muted)">${fmtDate(u.created_at||u.inserted_at)}</td>
-    </tr>`).join('') : '<tr><td colspan="4"><div class="empty-state"><div class="icon">👤</div><h4>Sin usuarios</h4><p>No se encontraron registros en la tabla "' + CFG.tables.users + '"</p></div></td></tr>';
+      <td><span class="pill ${emailConfirmed}">${emailLabel}</span></td>
+      <td style="color:var(--muted)">${fmtDate(u.created_at)}</td>
+    </tr>`;
+  }).join('') : '<tr><td colspan="4"><div class="empty-state"><div class="icon">👤</div><h4>Sin usuarios</h4></div></td></tr>';
 }
 
 // ── USERS ─────────────────────────────────────────────────────────────────────
-function renderUsers(users, subs, portfolios, assets) {
-  ALL_USERS = users; ALL_SUBS = subs; ALL_PORTFOLIOS = portfolios;
+function renderUsers(users, assets, transactions) {
+  ALL_USERS = users; ALL_ASSETS = assets; ALL_TRANSACTIONS = transactions;
   filterUsers();
 }
 function filterUsers() {
   const q = (document.getElementById('userSearch').value || '').toLowerCase();
   const pf = (document.getElementById('planFilter').value || '').toLowerCase();
   let list = ALL_USERS;
-  if (q) list = list.filter(u => (u.email||'').toLowerCase().includes(q) || (u.full_name||u.name||'').toLowerCase().includes(q));
-  if (pf) list = list.filter(u => getPlan(u, ALL_SUBS).toLowerCase() === pf);
+  if (q) list = list.filter(u => (u.email||'').toLowerCase().includes(q) || (u.user_metadata?.full_name||'').toLowerCase().includes(q));
+  if (pf === 'active') list = list.filter(u => u.email_confirmed_at);
+  else if (pf === 'free') list = list.filter(u => !u.email_confirmed_at);
   const tbody = document.getElementById('usersTable');
+  setText('userCountLabel', list.length);
   tbody.innerHTML = list.length ? list.map(u => {
-    const plan = getPlan(u, ALL_SUBS);
-    const uPortfolios = ALL_PORTFOLIOS.filter(p => p.user_id === u.id || p.user_id === u.user_id).length;
+    const verified = u.email_confirmed_at ? 'active' : 'trial';
+    const verLabel = u.email_confirmed_at ? 'Verificado' : 'Sin verificar';
+    const uAssets = ALL_ASSETS.filter(a => a.user_id === u.id).length;
+    const uTxs = ALL_TRANSACTIONS.filter(t => t.user_id === u.id).length;
+    const displayName = u.user_metadata?.full_name || u.user_metadata?.name || '—';
     return `<tr>
-      <td><div class="avatar-cell"><div class="mini-avatar">${(u.full_name||u.name||u.email||'?')[0].toUpperCase()}</div><span>${u.full_name||u.name||u.username||'—'}</span></div></td>
+      <td><div class="avatar-cell"><div class="mini-avatar">${(u.email||'?')[0].toUpperCase()}</div><span>${displayName}</span></div></td>
       <td style="color:var(--muted);font-size:0.78rem">${u.email||'—'}</td>
-      <td><span class="pill ${getPlanClass(plan)}">${plan}</span></td>
-      <td>${uPortfolios}</td>
-      <td>—</td>
-      <td style="color:var(--muted)">${fmtDate(u.created_at||u.inserted_at)}</td>
-      <td style="color:var(--muted)">${fmtDate(u.last_sign_in_at||u.updated_at)}</td>
+      <td><span class="pill ${verified}">${verLabel}</span></td>
+      <td>${uAssets}</td>
+      <td>${uTxs}</td>
+      <td style="color:var(--muted)">${fmtDate(u.created_at)}</td>
+      <td style="color:var(--muted)">${fmtDate(u.last_sign_in_at)}</td>
     </tr>`;
   }).join('') : '<tr><td colspan="7"><div class="empty-state"><div class="icon">🔍</div><h4>Sin resultados</h4></div></td></tr>';
 }
 
 // ── REVENUE ───────────────────────────────────────────────────────────────────
-function renderRevenue(users, subs) {
-  const active = subs.filter(s => s.status === 'active');
-  const mrr = active.reduce((a, s) => a + Number(s.amount||s.price||0), 0);
-  const avgTicket = active.length ? (mrr / active.length) : 0;
-  setText('r-mrr', '€' + mrr.toLocaleString('es'));
-  setText('r-arr', '€' + (mrr * 12).toLocaleString('es'));
-  setText('r-avg', '€' + avgTicket.toFixed(2));
-  setText('r-mrr-ch', active.length + ' suscripciones activas');
+function renderRevenue(users) {
+  // FinAsset doesn't have a subscriptions table yet — show user growth metrics
+  const now = new Date();
+  const d30 = new Date(now - 30 * 86400000);
+  const d7 = new Date(now - 7 * 86400000);
+  const newLast30 = users.filter(u => new Date(u.created_at) >= d30).length;
+  const newLast7 = users.filter(u => new Date(u.created_at) >= d7).length;
+  const verified = users.filter(u => u.email_confirmed_at).length;
 
-  document.getElementById('subsTable').innerHTML = active.length ? active.map(s => {
-    const u = users.find(u => u.id === s.user_id || u.user_id === s.user_id);
+  setText('r-mrr', newLast30);
+  setText('r-arr', newLast7);
+  setText('r-avg', verified);
+  setText('r-mrr-ch', 'nuevos este mes');
+
+  // Show all users in table
+  document.getElementById('subsTable').innerHTML = users.length ? users.slice(0, 50).map(u => {
+    const isVerified = u.email_confirmed_at;
     return `<tr>
-      <td>${u?.email || s.user_id?.slice?.(0,8) || '—'}</td>
-      <td><span class="pill pro">${s.plan||s.plan_id||'Pro'}</span></td>
-      <td>€${Number(s.amount||s.price||0).toFixed(2)}</td>
-      <td style="color:var(--muted)">${fmtDate(s.current_period_end||s.next_payment)}</td>
-      <td><span class="pill active">Activa</span></td>
+      <td style="color:var(--muted);font-size:0.78rem">${u.email||'—'}</td>
+      <td><span class="pill ${isVerified ? 'active' : 'trial'}">${isVerified ? 'Verificado' : 'Sin verificar'}</span></td>
+      <td style="color:var(--muted)">—</td>
+      <td style="color:var(--muted)">${fmtDate(u.last_sign_in_at)}</td>
+      <td><span class="pill ${isVerified ? 'active' : 'free'}">Registrado</span></td>
     </tr>`;
-  }).join('') : '<tr><td colspan="5"><div class="empty-state"><div class="icon">💳</div><h4>Sin suscripciones activas</h4><p>Los datos de suscripciones aparecerán aquí</p></div></td></tr>';
+  }).join('') : '<tr><td colspan="5"><div class="empty-state"><div class="icon">👥</div><h4>Sin usuarios</h4></div></td></tr>';
 }
 
 // ── APP STATS ─────────────────────────────────────────────────────────────────
-function renderApp(portfolios, assets) {
-  setText('a-portfolios', portfolios.length.toLocaleString('es'));
+function renderApp(assets, transactions) {
+  // Count unique users with assets
+  const usersWithAssets = new Set(assets.map(a => a.user_id)).size;
+  setText('a-portfolios', usersWithAssets.toLocaleString('es'));
   setText('a-assets', assets.length.toLocaleString('es'));
-  setText('a-txs', '—');
-  setText('a-alerts', '—');
-  const sorted = [...portfolios].sort((a,b) => (b.asset_count||0)-(a.asset_count||0)).slice(0,10);
-  document.getElementById('portfoliosTable').innerHTML = sorted.length ? sorted.map(p => `
-    <tr>
-      <td style="color:var(--muted);font-size:0.78rem">${p.user_id?.slice?.(0,8)||'—'}</td>
-      <td>${p.name||'—'}</td>
-      <td>${p.asset_count||'—'}</td>
-      <td>—</td>
-      <td style="color:var(--muted)">${fmtDate(p.created_at)}</td>
-    </tr>`) .join('')
-  : '<tr><td colspan="5"><div class="empty-state"><div class="icon">📊</div><h4>Sin carteras</h4></div></td></tr>';
+  setText('a-txs', transactions.length.toLocaleString('es'));
+
+  // Unique tickers
+  const tickers = new Set(assets.map(a => a.ticker || a.symbol || a.asset_id).filter(Boolean)).size;
+  setText('a-alerts', tickers.toLocaleString('es'));
+
+  // Top users by asset count
+  const byUser = {};
+  assets.forEach(a => { byUser[a.user_id] = (byUser[a.user_id] || 0) + 1; });
+  const sorted = Object.entries(byUser).sort((a,b) => b[1]-a[1]).slice(0,10);
+
+  document.getElementById('portfoliosTable').innerHTML = sorted.length ? sorted.map(([uid, cnt]) => {
+    const u = ALL_USERS.find(u => u.id === uid);
+    const txCount = transactions.filter(t => t.user_id === uid).length;
+    return `<tr>
+      <td style="color:var(--muted);font-size:0.78rem">${u?.email || uid.slice(0,12)+'…'}</td>
+      <td>${u?.user_metadata?.full_name || '—'}</td>
+      <td>${cnt}</td>
+      <td>${txCount}</td>
+      <td style="color:var(--muted)">${fmtDate(u?.created_at)}</td>
+    </tr>`;
+  }).join('')
+  : '<tr><td colspan="5"><div class="empty-state"><div class="icon">📊</div><h4>Sin activos registrados</h4></div></td></tr>';
 }
 
 // ── ACTIVITY ──────────────────────────────────────────────────────────────────
-function renderActivity(users, subs, portfolios) {
+function renderActivity(users, assets, transactions) {
   const events = [];
-  [...users].slice(0,5).forEach(u => events.push({ icon:'👤', bg:'#ecfdf5', text:`<strong>${u.email||u.full_name||'Usuario'}</strong> se registró`, time: u.created_at||u.inserted_at }));
-  [...subs].filter(s=>s.status==='active').slice(0,5).forEach(s => {
-    const u = users.find(u=>u.id===s.user_id);
-    events.push({ icon:'💳', bg:'#f5f3ff', text:`<strong>${u?.email||'Usuario'}</strong> activó plan ${s.plan||'Pro'}`, time: s.created_at });
+  [...users].slice(0, 10).forEach(u => events.push({
+    icon: '👤', bg: '#ecfdf5',
+    text: `<strong>${u.email || 'Usuario'}</strong> se registró`,
+    time: u.created_at
+  }));
+  [...assets].slice(0, 10).forEach(a => {
+    const u = users.find(u => u.id === a.user_id);
+    events.push({
+      icon: '📈', bg: '#eff6ff',
+      text: `<strong>${u?.email || a.user_id?.slice(0,8)}</strong> añadió activo <strong>${a.ticker || a.symbol || a.name || '—'}</strong>`,
+      time: a.created_at
+    });
   });
-  [...portfolios].slice(0,5).forEach(p => events.push({ icon:'📊', bg:'#eff6ff', text:`Nueva cartera <strong>"${p.name||'Sin nombre'}"</strong> creada`, time: p.created_at }));
+  [...transactions].slice(0, 10).forEach(t => {
+    const u = users.find(u => u.id === t.user_id);
+    events.push({
+      icon: '💱', bg: '#fff7ed',
+      text: `<strong>${u?.email || t.user_id?.slice(0,8)}</strong> registró transacción`,
+      time: t.created_at
+    });
+  });
   events.sort((a,b) => new Date(b.time||0)-new Date(a.time||0));
   document.getElementById('activityList').innerHTML = events.length ? events.map(e => `
     <div class="activity-item">
@@ -754,17 +815,6 @@ function renderActivity(users, subs, portfolios) {
 }
 
 // ── HELPERS ───────────────────────────────────────────────────────────────────
-function getPlan(user, subs) {
-  const sub = subs.find(s => s.user_id === user.id || s.user_id === user.user_id);
-  if (!sub) return user.plan || 'Free';
-  if (sub.status === 'active') return 'Pro';
-  if (sub.status === 'trialing' || sub.status === 'trial') return 'Trial';
-  if (sub.status === 'canceled' || sub.status === 'cancelled') return 'Cancelled';
-  return sub.plan || 'Free';
-}
-function getPlanClass(p) {
-  return { Pro:'pro', Trial:'trial', Free:'free', Cancelled:'cancelled' }[p] || 'free';
-}
 function fmtDate(d) {
   if (!d) return '—';
   try { return new Date(d).toLocaleDateString('es-ES', { day:'2-digit', month:'short', year:'numeric' }); }

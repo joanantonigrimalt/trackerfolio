@@ -2,6 +2,9 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
+    { "source": "/auth/(.*)",         "destination": "/api" },
+    { "source": "/rest/(.*)",         "destination": "/api" },
+    { "source": "/api/(.*)",          "destination": "/api" },
     { "source": "/admin",             "destination": "/admin/index.html" },
     { "source": "/admin/dashboard",   "destination": "/admin/dashboard.html" },
     { "source": "/desktop",           "destination": "/index.html" },
